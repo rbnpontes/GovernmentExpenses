@@ -1,0 +1,9 @@
+C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses-Back\bin\Business\GovernmentExpenses.Expenses.deps.json
+C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses-Back\bin\Business\GovernmentExpenses.Expenses.dll
+C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses-Back\bin\Business\GovernmentExpenses.Expenses.pdb
+C:\Users\Ruben\Documents\Projects\GovernmentExpenses\Business\GovernmentExpenses.Expenses\obj\Debug\netstandard2.1\GovernmentExpenses.Expenses.csprojAssemblyReference.cache
+C:\Users\Ruben\Documents\Projects\GovernmentExpenses\Business\GovernmentExpenses.Expenses\obj\Debug\netstandard2.1\GovernmentExpenses.Expenses.AssemblyInfoInputs.cache
+C:\Users\Ruben\Documents\Projects\GovernmentExpenses\Business\GovernmentExpenses.Expenses\obj\Debug\netstandard2.1\GovernmentExpenses.Expenses.AssemblyInfo.cs
+C:\Users\Ruben\Documents\Projects\GovernmentExpenses\Business\GovernmentExpenses.Expenses\obj\Debug\netstandard2.1\GovernmentExpenses.Expenses.csproj.CopyComplete
+C:\Users\Ruben\Documents\Projects\GovernmentExpenses\Business\GovernmentExpenses.Expenses\obj\Debug\netstandard2.1\GovernmentExpenses.Expenses.dll
+C:\Users\Ruben\Documents\Projects\GovernmentExpenses\Business\GovernmentExpenses.Expenses\obj\Debug\netstandard2.1\GovernmentExpenses.Expenses.pdb
