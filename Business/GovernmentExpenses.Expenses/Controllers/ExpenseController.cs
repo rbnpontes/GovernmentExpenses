@@ -11,10 +11,8 @@ namespace GovernmentExpenses.Expenses.Controllers
     [Route("api/expenses")]
     public class ExpenseController : ControllerBase
     {
-        private readonly ILogger logger_;
         public ExpenseController(ILogger logger)
         {
-            logger_ = logger;
         }
         [HttpGet]
         public string Get()

@@ -8,3 +8,4 @@ C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses.Core\obj
 C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses.Core\obj\Debug\netstandard2.0\GovernmentExpenses.Core.AssemblyInfo.cs
 C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses.Core\obj\Debug\netstandard2.0\GovernmentExpenses.Core.dll
 C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses.Core\obj\Debug\netstandard2.0\GovernmentExpenses.Core.pdb
+C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses.Core\obj\Debug\netstandard2.0\GovernmentExpenses.Core.csprojAssemblyReference.cache
