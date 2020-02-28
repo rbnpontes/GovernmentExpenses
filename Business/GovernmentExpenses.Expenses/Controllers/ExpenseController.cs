@@ -22,12 +22,10 @@ namespace GovernmentExpenses.Expenses.Controllers
         {
             return "Its working Expense Controller";
         }
-        [HttpGet("categories")]
-        public IReadOnlyList<ExpensePair> GetCategories()
+        [HttpGet("enums/{prop}")]
+        public IReadOnlyList<IExpensePair> GetEnums(string prop)
         {
-            List<ExpensePair> result = new List<ExpensePair>();
-            result.Add(new ExpensePair(0, "Hello"));
-            return result;
+            return service_.FetchEnum(prop);
         }
     }
 }

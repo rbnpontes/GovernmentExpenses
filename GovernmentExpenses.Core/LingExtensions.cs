@@ -11,5 +11,16 @@ namespace GovernmentExpenses.Core
         {
             return source.Skip((page - 1) * pageSize).Take(pageSize);
         }
+        public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> data, Func<TSource, TKey> predicate)
+        {
+            HashSet<TKey> sources = new HashSet<TKey>();
+            foreach (TSource item in data)
+            {
+                if (!sources.Contains(predicate(item)))
+                    continue;
+                sources.Add(predicate(item));
+                yield return item;
+            }
+        }
     }
 }

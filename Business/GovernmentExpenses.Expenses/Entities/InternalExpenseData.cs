@@ -15,13 +15,13 @@ namespace GovernmentExpenses.Expenses.Entities
     internal sealed class InternalExpenseData
     {
         [JsonProperty("fields")]
-        public string Fields { get; set; }
+        public IList<InternalExpenseType> Fields { get; set; }
         [JsonProperty("records")]
-        public IList<object[]> Records { get; set; } 
+        public IList<IList<object>> Records { get; set; } 
     }
     internal sealed class InternalExpense : Expense
     {
         // (idx, values[])
-        public Tuple<int, object[]> Data { get; set; }
+        public Tuple<int, IList<object>> Data { get; set; }
     }
 }

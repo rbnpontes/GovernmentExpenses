@@ -16,14 +16,19 @@ namespace GovernmentExpenses.Expenses.Repository
     {
         private ILogger logger_;
         private IList<InternalExpense> expenses_;
-        public LocalRepository(Microsoft.Extensions.Logging.ILogger logger)
+        public LocalRepository(ILogger logger)
         {
-            this.logger_ = logger;
+            logger_ = logger;
             Initialize();
         }
         // Read Database values and save at memory
         private InternalExpenseData ReadInternalData()
         {
+            //var data = Utils.DeserializeFile<dynamic>($"{AppDomain.CurrentDomain.BaseDirectory}Artifacts\\db.json");
+            //var result = new InternalExpenseData();
+            //result.Fields = data.fields;
+            //result.Records = data.records;
+            //return result;
             return Utils.DeserializeFile<InternalExpenseData>($"{AppDomain.CurrentDomain.BaseDirectory}Artifacts\\db.json");
         }
         private IList<InternalExpense> CreatingExpenses(InternalExpenseData data)
@@ -46,28 +51,28 @@ namespace GovernmentExpenses.Expenses.Repository
 
                 // Fill all Expense Data into a Internal Entity
                 InternalExpense expense = new InternalExpense();
-                expense.Data = Tuple.Create((int)idx, item);
-                expense.Id = (int)item[0];
-                expense.AnoMovimentacao = (int)item[1];
-                expense.MesMovimentacao = (int)item[2];
-                expense.Orgao               = new ExpensePair((int)item[3], (string)item[4]);
-                expense.Unidade             = new ExpensePair((int)item[5], (string)item[6]);
-                expense.CategoriaEconomica  = new ExpensePair((int)item[7], (string)item[8]);
-                expense.GrupoDespesa        = new ExpensePair((int)item[9], (string)item[10]);
-                expense.ModalidadeAplicacao = new ExpensePair((int)item[11], (string)item[12]);
-                expense.Elemento            = new ExpensePair((int)item[13], (string)item[14]);
-                expense.SubElemento         = new ExpensePair((int)item[15], (string)item[16]);
-                expense.Funcao              = new ExpensePair((int)item[17], (string)item[18]);
-                expense.SubFuncao           = new ExpensePair((int)item[19], (string)item[20]);
-                expense.Programa            = new ExpensePair((int)item[21], (string)item[22]);
-                expense.Acao                = new ExpensePair((int)item[23], (string)item[24]);
-                expense.FonteRecurso         = new ExpensePair((int)item[25], (string)item[26]);
-                expense.EmpenhoAno = (int)item[27];
-                expense.EmpenhoModalidade   = new ExpensePair((int)item[29], (string)item[28]);
-                expense.EmpenhoNumero = (int)item[30];
-                expense.SubEmpenho = (int)item[31];
-                expense.Credor              = new ExpensePair((int)item[33], (string)item[34]);
-                expense.ModalidadeLicitacao = new ExpensePair((int)item[35], (string)item[36]);
+                expense.Data = Tuple.Create((int)(long)idx, item);
+                expense.Id = (int)(long)item[0];
+                expense.AnoMovimentacao = (int)(long)item[1];
+                expense.MesMovimentacao = (int)(long)item[2];
+                expense.Orgao               = new ExpensePair<int>((int)(long)item[3], (string)item[4]);
+                expense.Unidade             = new ExpensePair<float>((float)item[5], (string)item[6]);
+                expense.CategoriaEconomica  = new ExpensePair<int>((int)(long)item[7], (string)item[8]);
+                expense.GrupoDespesa        = new ExpensePair<int>((int)(long)item[9], (string)item[10]);
+                expense.ModalidadeAplicacao = new ExpensePair<int>((int)(long)item[11], (string)item[12]);
+                expense.Elemento            = new ExpensePair<int>((int)(long)item[13], (string)item[14]);
+                expense.SubElemento         = new ExpensePair<int>((int)(long)item[15], (string)item[16]);
+                expense.Funcao              = new ExpensePair<int>((int)(long)item[17], (string)item[18]);
+                expense.SubFuncao           = new ExpensePair<int>((int)(long)item[19], (string)item[20]);
+                expense.Programa            = new ExpensePair<int>((int)(long)item[21], (string)item[22]);
+                expense.Acao                = new ExpensePair<int>((int)(long)item[23], (string)item[24]);
+                expense.FonteRecurso        = new ExpensePair<int>((int)(long)item[25], (string)item[26]);
+                expense.EmpenhoAno = (int)(long)item[27];
+                expense.EmpenhoModalidade   = new ExpensePair<int>((int)(long)item[29], (string)item[28]);
+                expense.EmpenhoNumero = (int)(long)item[30];
+                expense.SubEmpenho = (int)(long)item[31];
+                expense.Credor              = new ExpensePair<int>((int)(long)item[33], (string)item[34]);
+                expense.ModalidadeLicitacao = new ExpensePair<int>((int)(long)item[35], (string)item[36]);
                 expense.ValorEmpenhado = (string)item[37];
                 expense.ValorLiquidado = (string)item[38];
                 expense.ValorPago = (string)item[39];

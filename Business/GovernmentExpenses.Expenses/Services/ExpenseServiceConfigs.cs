@@ -10,7 +10,7 @@ namespace GovernmentExpenses.Expenses.Services
 {
     internal partial class ExpenseService
     {
-        public ILogger Logger { get; private set; }
+        public readonly ILogger Logger;
         private IRepository<Expense> repository_;
         public IRepository<Expense> Repository
         {
@@ -21,7 +21,7 @@ namespace GovernmentExpenses.Expenses.Services
                 return repository_;
             }
         }
-        private Dictionary<string, Func<Expense, object>> OrderKeyPairs = new Dictionary<string, Func<Expense, object>>
+        private readonly Dictionary<string, Func<Expense, object>> OrderKeyPairs = new Dictionary<string, Func<Expense, object>>
         {
             {"id", (x) => x.Id},
             {"ano_movimentacao", (x) => x.AnoMovimentacao},
@@ -46,7 +46,30 @@ namespace GovernmentExpenses.Expenses.Services
             {"credor", (x) => x.Credor.Code},
             {"mod_licitacao", (x)=> x.ModalidadeLicitacao.Code },
             {"valor_empenhado", (x) => x.ValorEmpenhado},
-            {"valor_pago", (x)=> x.ValorPago}
+            {"valor_pago", (x)=> x.ValorPago},
+            {"valor_liquidado", (x)=> x.ValorLiquidado }
         };
+        private readonly Dictionary<string, Func<Expense, IExpensePair>> EnumKeyPairs = new Dictionary<string, Func<Expense, IExpensePair>>
+        {
+            {"orgao",           (x)=> x.Orgao },
+            {"unidade",         (x)=> x.Unidade },
+            {"categoria",       (x)=> x.CategoriaEconomica},
+            {"grupo",           (x)=> x.GrupoDespesa},
+            {"mod_aplicacao",   (x)=> x.ModalidadeAplicacao},
+            {"elemento",        (x)=> x.Elemento},
+            {"sub_elemento",    (x)=> x.SubElemento},
+            {"funcao",          (x)=> x.Funcao },
+            {"sub_funcao",      (x)=> x.SubFuncao },
+            {"programa",        (x)=> x.Programa},
+            {"acao",            (x)=> x.Acao },
+            {"fonte_recurso",   (x)=> x.FonteRecurso},
+            {"empenho_mod",     (x)=> x.EmpenhoModalidade },
+            {"credor",          (x)=> x.Credor},
+            {"mod_licitacao",   (x)=> x.ModalidadeLicitacao },
+        };
+        public ExpenseService(ILogger logger)
+        {
+            Logger = logger;
+        }
     }
 }

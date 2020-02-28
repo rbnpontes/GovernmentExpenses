@@ -11,16 +11,20 @@ namespace GovernmentExpenses.Core
         public static T DeserializeFile<T>(string path)
         {
             T result = default(T);
-            using (StreamReader reader = File.OpenText(path))
+            using (StreamReader stream = File.OpenText(path))
             {
-                JsonSerializer serializer = new JsonSerializer();
-                result = (T)serializer.Deserialize(reader,typeof(T));
+                using (JsonTextReader reader = new JsonTextReader(stream))
+                {
+                    reader.SupportMultipleContent = true;
+                    JsonSerializer serializer = new JsonSerializer();
+                    result = serializer.Deserialize<T>(reader);
+                }
             }
             return result;
         }
         public static void SerializeToFile<T>(string path, T obj)
         {
-            using(StreamWriter writer = File.CreateText(path))
+            using (StreamWriter writer = File.CreateText(path))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(writer, obj);

@@ -12,7 +12,7 @@ namespace GovernmentExpenses.Expenses.Services
         IDictionary<string, IExpenseResult> FetchTotalExpensesByProp(string prop);
         IDictionary<string, IReadOnlyList<ExpenseDTO>> FetchExpensesGroupByProp(string prop, int page = 0, int pageSize = 10, string orderBy = "", bool orderDesc = false);
         IReadOnlyList<ExpenseDTO> FetchAll(int page = 0, int pageSize = 10, string orderBy = "id", bool orderDesc = false);
-        IReadOnlyList<ExpensePair> FetchEnum(string prop);
+        IReadOnlyList<IExpensePair> FetchEnum(string prop);
     }
     internal partial class ExpenseService : IExpenseService
     {
@@ -28,9 +28,11 @@ namespace GovernmentExpenses.Expenses.Services
             var values = TryOrderList(Repository.All().Page(page, pageSize), orderBy, orderDesc);
             return values.Select(x => new ExpenseDTO(x)).ToList().AsReadOnly();
         }
-        public IReadOnlyList<ExpensePair> FetchEnum(string prop)
+        public IReadOnlyList<IExpensePair> FetchEnum(string prop)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(prop) || !EnumKeyPairs.ContainsKey(prop))
+                return new List<IExpensePair>().AsReadOnly();
+            return Repository.All().Select(EnumKeyPairs[prop]).DistinctBy(x => x.Code).ToList().AsReadOnly();
         }
         public IDictionary<string, IReadOnlyList<ExpenseDTO>> FetchExpensesGroupByProp(string prop, int page = 0, int pageSize = 10, string orderBy = "", bool orderDesc = false)
         {

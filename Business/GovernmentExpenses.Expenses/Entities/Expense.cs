@@ -4,41 +4,47 @@ using System.Text;
 
 namespace GovernmentExpenses.Expenses.Entities
 {
-    public class ExpensePair
+    public interface IExpensePair
     {
-        public int Code { get; set; }
+        public object Code { get; set; }
         public string Name { get; set; }
+    }
+    public class ExpensePair<TCode> : IExpensePair
+    {
         public ExpensePair() { }
-        public ExpensePair(int code, string name)
+        public ExpensePair(TCode code, string name)
         {
             Code = code;
             Name = name;
         }
+
+        public object Code { get; set; }
+        public string Name { get; set; }
     }
     public class Expense
     {
         public int Id { get; set; }
         public int AnoMovimentacao { get; set; }
         public int MesMovimentacao { get; set; }
-        public ExpensePair Orgao { get; set; }
-        public ExpensePair Unidade { get; set; }
-        public ExpensePair CategoriaEconomica { get; set; }
-        public ExpensePair GrupoDespesa { get; set; }
-        public ExpensePair ModalidadeAplicacao { get; set; }
-        public ExpensePair Elemento { get; set; }
-        public ExpensePair SubElemento { get; set; }
-        public ExpensePair Funcao { get; set; }
-        public ExpensePair SubFuncao { get; set; }
-        public ExpensePair Programa { get; set; }
-        public ExpensePair Acao { get; set; }
-        public ExpensePair FonteRecurso { get; set; }
+        public ExpensePair<int> Orgao { get; set; }
+        public ExpensePair<float> Unidade { get; set; }
+        public ExpensePair<int> CategoriaEconomica { get; set; }
+        public ExpensePair<int> GrupoDespesa { get; set; }
+        public ExpensePair<int> ModalidadeAplicacao { get; set; }
+        public ExpensePair<int> Elemento { get; set; }
+        public ExpensePair<int> SubElemento { get; set; }
+        public ExpensePair<int> Funcao { get; set; }
+        public ExpensePair<int> SubFuncao { get; set; }
+        public ExpensePair<int> Programa { get; set; }
+        public ExpensePair<int> Acao { get; set; }
+        public ExpensePair<int> FonteRecurso { get; set; }
         public int EmpenhoAno { get; set; }
-        public ExpensePair EmpenhoModalidade { get; set; }
+        public ExpensePair<int> EmpenhoModalidade { get; set; }
         public int EmpenhoNumero { get; set; }
         public int SubEmpenho { get; set; }
         public string IndicadorSubEmpenho { get; set; }
-        public ExpensePair Credor { get; set; }
-        public ExpensePair ModalidadeLicitacao { get; set; }
+        public ExpensePair<int> Credor { get; set; }
+        public ExpensePair<int> ModalidadeLicitacao { get; set; }
         public string ValorEmpenhado { get; set; }
         public string ValorLiquidado { get; set; }
         public string ValorPago { get; set; }
