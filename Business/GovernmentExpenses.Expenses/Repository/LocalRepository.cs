@@ -24,13 +24,7 @@ namespace GovernmentExpenses.Expenses.Repository
         // Read Database values and save at memory
         private InternalExpenseData ReadInternalData()
         {
-            InternalExpenseData result = null;
-            using(StreamReader reader = File.OpenText(AppDomain.CurrentDomain.BaseDirectory + "Artifacts\\db.json"))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                result = (InternalExpenseData)serializer.Deserialize(reader,typeof(InternalExpenseData));
-            }
-            return result;
+            return Utils.DeserializeFile<InternalExpenseData>($"{AppDomain.CurrentDomain.BaseDirectory}Artifacts\\db.json");
         }
         private IList<InternalExpense> CreatingExpenses(InternalExpenseData data)
         {
