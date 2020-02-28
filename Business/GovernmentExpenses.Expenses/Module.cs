@@ -1,4 +1,5 @@
 ﻿using GovernmentExpenses.Core;
+using GovernmentExpenses.Expenses.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
@@ -18,6 +19,7 @@ namespace GovernmentExpenses.Expenses
                 builder.AddConsole().AddDebug();
             });
             services.AddSingleton(factory.CreateLogger("Expenses"));
+            services.AddTransient<IExpenseService, ExpenseService>();
         }
     }
 }

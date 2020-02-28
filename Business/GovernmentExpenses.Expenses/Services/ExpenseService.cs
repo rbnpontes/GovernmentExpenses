@@ -6,11 +6,12 @@ namespace GovernmentExpenses.Expenses.Services
 {
     public interface IExpenseService
     {
-        IDictionary<string, ExpenseDTO> FetchGroupItems();
+        ExpenseDTO FetchTotalExpenses();
+        IDictionary<string, ExpenseDTO> FetchTotalExpensesByProp();
         IDictionary<string, ExpenseDTO> FetchGroupItemsPerMonth();
-
+        
     }
-    internal class ExpenseService
+    internal class ExpenseService : IExpenseService
     {
     }
 }

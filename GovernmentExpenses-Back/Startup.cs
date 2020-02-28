@@ -24,7 +24,6 @@ namespace GovernmentExpenses
         {
             Configuration = configuration;
         }
-        private readonly ILogger logger_;
         public IConfiguration Configuration { get; }
         // This method will load all assemblies in Business folder
         private void ConfigurePlugins(IServiceCollection services)
@@ -44,12 +43,12 @@ namespace GovernmentExpenses
                     try
                     {
                         Assembly assembly = Assembly.LoadFrom(path);
-                        assembly.GetTypes().Where((type) => type.IsAssignableFrom(moduleType)).ToList().ForEach(type =>
+                        assembly.DefinedTypes.Where((type) => type.GetInterfaces().Contains(moduleType)).ToList().ForEach(type =>
                         {
-                        // Instantiate Module
-                        IModule module = (IModule)Activator.CreateInstance(type);
-                        // Setup this module
-                        module.Configure(services);
+                            // Instantiate Module
+                            IModule module = (IModule)Activator.CreateInstance(type);
+                            // Setup this module
+                            module.Configure(services);
                         });
                         lock (mutexObj)
                         {
@@ -60,6 +59,7 @@ namespace GovernmentExpenses
                     catch (Exception e)
                     {
                         Console.WriteLine($"Error has Ocurred at Register \"{Path.GetFileName(path)}\"");
+                        Console.WriteLine(e.ToString());
                     }
                 });
                 mvcBuilder.AddControllersAsServices();

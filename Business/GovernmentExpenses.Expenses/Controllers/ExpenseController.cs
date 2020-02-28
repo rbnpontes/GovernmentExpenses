@@ -1,4 +1,5 @@
 ﻿using GovernmentExpenses.Expenses.Entities;
+using GovernmentExpenses.Expenses.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,8 +12,10 @@ namespace GovernmentExpenses.Expenses.Controllers
     [Route("api/expenses")]
     public class ExpenseController : ControllerBase
     {
-        public ExpenseController(ILogger logger)
+        private readonly IExpenseService service_;
+        public ExpenseController(IExpenseService service)
         {
+            service_ = service;
         }
         [HttpGet]
         public string Get()
