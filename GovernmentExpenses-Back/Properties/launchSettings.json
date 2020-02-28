@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/GovernmentExpenses-Back",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:52619",
       "sslPort": 0
@@ -19,7 +23,6 @@
     },
     "GovernmentExpenses_Back": {
       "commandName": "Project",
-      "launchBrowser": true,
       "launchUrl": "weatherforecast",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

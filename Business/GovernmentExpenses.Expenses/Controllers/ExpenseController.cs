@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GovernmentExpenses.Expenses.Entities;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,10 +11,22 @@ namespace GovernmentExpenses.Expenses.Controllers
     [Route("api/expenses")]
     public class ExpenseController : ControllerBase
     {
+        private readonly ILogger logger_;
+        public ExpenseController(ILogger logger)
+        {
+            logger_ = logger;
+        }
         [HttpGet]
         public string Get()
         {
             return "Its working Expense Controller";
+        }
+        [HttpGet("categories")]
+        public IReadOnlyList<ExpensePair> GetCategories()
+        {
+            List<ExpensePair> result = new List<ExpensePair>();
+            result.Add(new ExpensePair(0, "Hello"));
+            return result;
         }
     }
 }

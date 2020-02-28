@@ -1,11 +1,10 @@
 C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses.Core\bin\Debug\netstandard2.0\GovernmentExpenses.Core.deps.json
 C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses.Core\bin\Debug\netstandard2.0\GovernmentExpenses.Core.dll
-C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses.Core\obj\Debug\netstandard2.0\GovernmentExpenses.Core.csprojAssemblyReference.cache
-C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses.Core\obj\Debug\netstandard2.0\GovernmentExpenses.Core.AssemblyInfoInputs.cache
-C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses.Core\obj\Debug\netstandard2.0\GovernmentExpenses.Core.AssemblyInfo.cs
 C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses.Core\bin\Debug\netstandard2.0\GovernmentExpenses.Core.pdb
-C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses.Core\obj\Debug\netstandard2.0\GovernmentExpenses.Core.dll
-C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses.Core\obj\Debug\netstandard2.0\GovernmentExpenses.Core.pdb
 C:\Users\Ruben\Documents\Projects\GovernmentExpenses-Back\bin\GovernmentExpenses.Core.deps.json
 C:\Users\Ruben\Documents\Projects\GovernmentExpenses-Back\bin\GovernmentExpenses.Core.dll
 C:\Users\Ruben\Documents\Projects\GovernmentExpenses-Back\bin\GovernmentExpenses.Core.pdb
+C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses.Core\obj\Debug\netstandard2.0\GovernmentExpenses.Core.AssemblyInfoInputs.cache
+C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses.Core\obj\Debug\netstandard2.0\GovernmentExpenses.Core.AssemblyInfo.cs
+C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses.Core\obj\Debug\netstandard2.0\GovernmentExpenses.Core.dll
+C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses.Core\obj\Debug\netstandard2.0\GovernmentExpenses.Core.pdb
