@@ -56,7 +56,7 @@ namespace GovernmentExpenses.Expenses.Repository
                 expense.AnoMovimentacao = (int)(long)item[1];
                 expense.MesMovimentacao = (int)(long)item[2];
                 expense.Orgao               = new ExpensePair<int>((int)(long)item[3], (string)item[4]);
-                expense.Unidade             = new ExpensePair<float>((float)item[5], (string)item[6]);
+                expense.Unidade             = new ExpensePair<float>((float)(double)item[5], (string)item[6]);
                 expense.CategoriaEconomica  = new ExpensePair<int>((int)(long)item[7], (string)item[8]);
                 expense.GrupoDespesa        = new ExpensePair<int>((int)(long)item[9], (string)item[10]);
                 expense.ModalidadeAplicacao = new ExpensePair<int>((int)(long)item[11], (string)item[12]);
@@ -97,7 +97,7 @@ namespace GovernmentExpenses.Expenses.Repository
         }
         public IList<Expense> All()
         {
-            return (IList<Expense>)expenses_;
+            return expenses_.Cast<Expense>().ToList();
         }
 
         public void Commit()

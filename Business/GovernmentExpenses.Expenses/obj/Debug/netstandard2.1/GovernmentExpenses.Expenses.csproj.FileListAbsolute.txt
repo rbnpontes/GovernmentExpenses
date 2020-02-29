@@ -7,3 +7,4 @@ C:\Users\Ruben\Documents\Projects\GovernmentExpenses\Business\GovernmentExpenses
 C:\Users\Ruben\Documents\Projects\GovernmentExpenses\Business\GovernmentExpenses.Expenses\obj\Debug\netstandard2.1\GovernmentExpenses.Expenses.csproj.CopyComplete
 C:\Users\Ruben\Documents\Projects\GovernmentExpenses\Business\GovernmentExpenses.Expenses\obj\Debug\netstandard2.1\GovernmentExpenses.Expenses.dll
 C:\Users\Ruben\Documents\Projects\GovernmentExpenses\Business\GovernmentExpenses.Expenses\obj\Debug\netstandard2.1\GovernmentExpenses.Expenses.pdb
+C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses-Back\bin\Business\GovernmentExpenses.Expenses.xml

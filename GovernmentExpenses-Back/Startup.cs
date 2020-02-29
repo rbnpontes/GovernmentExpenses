@@ -78,6 +78,29 @@ namespace GovernmentExpenses
         {
             ConfigurePlugins(services);
             services.AddControllers();
+
+            // Swagger Generation: https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "Government Expenses",
+                    Version = "v1",
+                    Description = "Simple Proof of Concept!\n" +
+                                   "This system uses a Pernambuco Government open dataset - Recife, Brazil<br/>"+
+                                   $"Architecture of this system is a Plugin System, this system will lookup a <bloquote>{AppDomain.CurrentDomain.BaseDirectory}\\Business</blockquote><br/>" +
+                                   $"and Load all DLL's inside at this folder.<br/>" +
+                                   $"Business modules contains a 'IModule' interface implemented, this is used for register all services.",
+                    Contact=new Microsoft.OpenApi.Models.OpenApiContact
+                    {
+                        Email = "rbnpontes@gmail.com",
+                        Name = "Ruben Gomes",
+                        Url = new Uri("http://github.com/rbnpontes")
+                    }
+
+                });
+                Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "Docs").ToList().ForEach(x => c.IncludeXmlComments(x));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -94,6 +117,12 @@ namespace GovernmentExpenses
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "GovernmentExpenses API V1");
+            });
 
             app.UseEndpoints(endpoints =>
             {

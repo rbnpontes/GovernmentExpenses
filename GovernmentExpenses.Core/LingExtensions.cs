@@ -16,9 +16,10 @@ namespace GovernmentExpenses.Core
             HashSet<TKey> sources = new HashSet<TKey>();
             foreach (TSource item in data)
             {
-                if (!sources.Contains(predicate(item)))
+                var key = predicate(item);
+                if (sources.Contains(key))
                     continue;
-                sources.Add(predicate(item));
+                sources.Add(key);
                 yield return item;
             }
         }
