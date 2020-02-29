@@ -21,7 +21,7 @@ namespace GovernmentExpenses.Expenses.Entities
         public ExpensePair<int> Acao { get; set; }
         public ExpensePair<int> FonteRecurso { get; set; }
         public int? EmpenhoAno { get; set; }
-        public ExpensePair<int?> EmpenhoModalidade { get; set; }
+        public ExpensePair<int> EmpenhoModalidade { get; set; }
         public int? EmpenhoNumero { get; set; }
         public int? SubEmpenho { get; set; }
         public string IndicadorSubEmpenho { get; set; }

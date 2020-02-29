@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using _Convert = System.Convert;
 namespace GovernmentExpenses.Core
 {
     public static class LingExtensions
@@ -29,6 +29,13 @@ namespace GovernmentExpenses.Core
                     continue;
                 sources.Add(key);
                 yield return item;
+            }
+        }
+        public static IEnumerable<TType> Convert<TSource, TType>(this IEnumerable<TSource> data)
+        {
+            foreach(TSource item in data)
+            {
+                yield return (TType)_Convert.ChangeType(item, typeof(TType));
             }
         }
     }

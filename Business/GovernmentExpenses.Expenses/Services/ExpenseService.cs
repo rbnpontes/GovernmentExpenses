@@ -1,35 +1,23 @@
 ﻿using GovernmentExpenses.Core;
 using GovernmentExpenses.Expenses.Entities;
+using GovernmentExpenses.Expenses.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace GovernmentExpenses.Expenses.Services
 {
-    public interface IExpenseService
-    {
-        IExpenseResult FetchTotalExpenses();
-        IDictionary<string, IExpenseResult> FetchTotalExpensesByProp(string prop);
-        IEnumerable<string> FetchExpensesOrderKeys(bool? orderDesc);
-        IEnumerable<string> FetchExpensesKeys(bool? orderDesc);
-        IEnumerable<ExpenseDTO> FetchSearch(string criteria, string prop = null, string orderBy = null, bool? orderDesc = null);
-        IEnumerable<ExpenseDTO> FetchAll(string orderBy = null, bool? orderDesc = null);
-        IDictionary<string, IExpenseGroup> FetchExpensesGroupByProp(string prop);
-        IEnumerable<ExpenseDTO> FetchExpenseGroupItems(string prop, object[] groupCode, string orderBy = null, bool? orderDesc = null);
-        IEnumerable<ExpenseDTO> FetchExpenseGroupItems(string prop, object groupCode, string orderBy = null, bool? orderDesc = null);
-        IReadOnlyList<IExpensePair> FetchEnum(string prop, string orderBy = null, bool? orderDesc = null);
-        IEnumerable<string> FetchEnumKeys(bool? orderDesc);
-        ExpenseDTO TryEditExpense(int id, ExpenseForm form);
-        int ExpensesCount { get; }
-    }
     internal partial class ExpenseService : IExpenseService
     {
         private IEnumerable<Expense> TryOrderList(IEnumerable<Expense> list, string orderBy = null, bool? orderDesc = null)
         {
-            if (string.IsNullOrEmpty(orderBy) || !OrderKeyPairs.ContainsKey(orderBy))
-                orderDesc = orderDesc ?? false;
-            else if (orderDesc != null)
+            if (orderBy == null && orderDesc == null)
+                return list;
+            else if (string.IsNullOrEmpty(orderBy) || !OrderKeyPairs.ContainsKey(orderBy))
+            {
                 orderBy = "id";
+                orderDesc = orderDesc ?? false;
+            }
             return list.Order(orderDesc, OrderKeyPairs[orderBy]);
         }
         public int ExpensesCount { get => Repository.Count; }
@@ -203,6 +191,12 @@ namespace GovernmentExpenses.Expenses.Services
         {
             return string.IsNullOrEmpty(second) ? first : second;
         }
+        public string NullCoalescingForCurrency(string first, string second)
+        {
+            if (string.IsNullOrEmpty(second))
+                return first;
+            return Utils.ParseCurrency(first).ToString().Replace(".", ",");
+        }
         public ExpenseDTO TryEditExpense(int id, ExpenseForm form)
         {
             var expense = Repository.Where(x => x.Id == id).FirstOrDefault();
@@ -222,6 +216,17 @@ namespace GovernmentExpenses.Expenses.Services
             expense.Acao = NullCoalescingForPair(expense.Acao, form.Acao);
             expense.FonteRecurso = NullCoalescingForPair(expense.FonteRecurso, form.FonteRecurso);
             expense.EmpenhoAno = form.EmpenhoAno ?? expense.EmpenhoAno;
+            expense.EmpenhoModalidade = NullCoalescingForPair(expense.EmpenhoModalidade, form.EmpenhoModalidade);
+            expense.EmpenhoNumero = form.EmpenhoNumero ?? expense.EmpenhoNumero;
+            expense.SubEmpenho = form.SubEmpenho ?? expense.SubEmpenho;
+            expense.IndicadorSubEmpenho = NullCoalescingForString(expense.IndicadorSubEmpenho, form.IndicadorSubEmpenho);
+            expense.Credor = NullCoalescingForPair(expense.Credor, form.Credor);
+            expense.ModalidadeLicitacao = NullCoalescingForPair(expense.ModalidadeLicitacao, form.ModalidadeLicitacao);
+            expense.ValorEmpenhado = NullCoalescingForCurrency(expense.ValorEmpenhado, form.ValorEmpenhado);
+            expense.ValorLiquidado = NullCoalescingForCurrency(expense.ValorLiquidado, form.ValorLiquidado);
+            expense.ValorPago = NullCoalescingForCurrency(expense.ValorPago, form.ValorPago);
+            Repository.Update(expense);
+            Repository.Commit();
             return new ExpenseDTO(expense);  
         }
     }

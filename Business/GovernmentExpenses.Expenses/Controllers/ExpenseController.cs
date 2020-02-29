@@ -1,5 +1,6 @@
 ﻿using GovernmentExpenses.Core;
 using GovernmentExpenses.Expenses.Entities;
+using GovernmentExpenses.Expenses.Interfaces;
 using GovernmentExpenses.Expenses.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -58,7 +59,13 @@ namespace GovernmentExpenses.Expenses.Controllers
         {
             return TryPaginate(service_.FetchAll(orderBy, orderDesc), page, pageSize);
         }
-        [HttpPost]
+        /// <summary>
+        /// Edit a Expense
+        /// </summary>
+        /// <param name="id">Expense ID</param>
+        /// <param name="form">Expense Form Values</param>
+        /// <returns>Return a Final Expense Value</returns>
+        [HttpPut]
         public ExpenseDTO Edit(int id, ExpenseForm form)
         {
             return service_.TryEditExpense(id, form);
@@ -131,27 +138,6 @@ namespace GovernmentExpenses.Expenses.Controllers
         public IDictionary<string, IExpenseGroup> GetExpensesGroup(string prop)
         {
             return service_.FetchExpensesGroupByProp(prop);
-        }
-        /// <summary>
-        /// Returns a List of Expenses from a Specific Group
-        /// </summary>
-        /// <param name="groupCode">Group Code</param>
-        /// <param name="groupProp">Group Property</param>
-        /// <param name="page">Page index</param>
-        /// <param name="pageSize">Page size</param>
-        /// <param name="orderBy">Order by property</param>
-        /// <param name="orderDesc">Order by descending</param>
-        /// <returns>Returns a list of Expenses</returns>
-        [HttpGet("group/{groupCode}/{groupProp}")]
-        public Pager<ExpenseDTO> GetExpensesFromGroup(
-            int groupCode,
-            string groupProp,
-            [FromQuery(Name = "page")]int? page,
-            [FromQuery(Name = "pageSize")]int? pageSize,
-            [FromQuery(Name = "orderBy")]string orderBy,
-            [FromQuery(Name = "orderDesc")] bool? orderDesc)
-        {
-            return TryPaginate(service_.FetchExpenseGroupItems(groupProp, groupCode, orderBy, orderDesc), page, pageSize);
         }
         /// <summary>
         /// Returns a List of Expenses from a Specific Group

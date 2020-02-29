@@ -1,4 +1,5 @@
 ﻿using GovernmentExpenses.Core;
+using GovernmentExpenses.Expenses.Interfaces;
 using GovernmentExpenses.Expenses.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

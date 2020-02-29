@@ -28,7 +28,7 @@ namespace GovernmentExpenses.Expenses.Controllers
         [HttpGet("keys")]
         [HttpGet("search/keys")]
         [HttpGet("total/{prop}/keys")]
-        [HttpGet("group/keys")]
+        [HttpGet("group/{prop}/keys")]
         public IDictionary<string, IEnumerable<string>> GetExpensesProperties([FromQuery(Name = "orderDesc")]bool? desc)
         {
             return GetOrderKeyData(service_.FetchExpensesKeys(desc));

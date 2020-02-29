@@ -80,22 +80,22 @@ namespace GovernmentExpenses.Expenses.Services
         };
         private readonly Dictionary<string, Func<IEnumerable<object>, Func<Expense, bool>>> ExpensesKeyPairs = new Dictionary<string, Func<IEnumerable<object>, Func<Expense, bool>>>
         {
-            {"orgao",           (values) => (x) => values.Contains(x.Orgao.Code)},
+            {"orgao",           (values) => (x) => values.Convert<object,int>().Contains((int)x.Orgao.Code)},
             {"unidade",         (values) => (x) => values.Contains(x.Unidade.Code)},
-            {"categoria",       (values) => (x) => values.Contains(x.CategoriaEconomica.Code)},
-            {"grupo",           (values) => (x) => values.Contains(x.GrupoDespesa.Code)},
-            {"mod_aplicacao",   (values) => (x) => values.Contains(x.ModalidadeAplicacao.Code)},
-            {"elemento",        (values) => (x) => values.Contains(x.Elemento.Code)},
-            {"sub_elemento",    (values) => (x) => values.Contains(x.SubElemento.Code)},
-            {"funcao",          (values) => (x) => values.Contains(x.Funcao.Code)},
-            {"sub_funcao",      (values) => (x) => values.Contains(x.SubFuncao.Code)},
-            {"programa",        (values) => (x) => values.Contains(x.Programa.Code)},
-            {"acao",            (values) => (x) => values.Contains(x.Acao.Code)},
-            {"fonte_recurso",   (values) => (x) => values.Contains(x.FonteRecurso.Code)},
-            {"empenho_mod",     (values) => (x) => values.Contains(x.EmpenhoModalidade.Code)},
-            {"credor",          (values) => (x) => values.Contains(x.Credor.Code)},
-            {"mod_licitacao",   (values) => (x) => values.Contains(x.ModalidadeLicitacao.Code)},
-            {"mes_movimentacao",(values) => (x) => values.Contains(x.MesMovimentacao)}
+            {"categoria",       (values) => (x) => values.Convert<object,int>().Contains((int)x.CategoriaEconomica.Code)},
+            {"grupo",           (values) => (x) => values.Convert<object,int>().Contains((int)x.GrupoDespesa.Code)},
+            {"mod_aplicacao",   (values) => (x) => values.Convert<object,int>().Contains((int)x.ModalidadeAplicacao.Code)},
+            {"elemento",        (values) => (x) => values.Convert<object,int>().Contains((int)x.Elemento.Code)},
+            {"sub_elemento",    (values) => (x) => values.Convert<object,int>().Contains((int)x.SubElemento.Code)},
+            {"funcao",          (values) => (x) => values.Convert<object,int>().Contains((int)x.Funcao.Code)},
+            {"sub_funcao",      (values) => (x) => values.Convert<object,int>().Contains((int)x.SubFuncao.Code)},
+            {"programa",        (values) => (x) => values.Convert<object,int>().Contains((int)x.Programa.Code)},
+            {"acao",            (values) => (x) => values.Convert<object,int>().Contains((int)x.Acao.Code)},
+            {"fonte_recurso",   (values) => (x) => values.Convert<object,int>().Contains((int)x.FonteRecurso.Code)},
+            {"empenho_mod",     (values) => (x) => values.Convert<object,int>().Contains((int)x.EmpenhoModalidade.Code)},
+            {"credor",          (values) => (x) => values.Convert<object,int>().Contains((int)x.Credor.Code)},
+            {"mod_licitacao",   (values) => (x) => values.Convert<object,int>().Contains((int)x.ModalidadeLicitacao.Code)},
+            {"mes_movimentacao",(values) => (x) => values.Convert<object,int>().Contains((int)x.MesMovimentacao.Code)}
         };
         #endregion
         public ExpenseService(ILogger logger)
