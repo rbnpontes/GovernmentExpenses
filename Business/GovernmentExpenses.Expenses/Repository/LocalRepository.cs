@@ -16,6 +16,15 @@ namespace GovernmentExpenses.Expenses.Repository
     {
         private ILogger logger_;
         private IList<InternalExpense> expenses_;
+        private readonly string[] MonthNames = {
+            "January","February", "March",
+            "April", "May", "June",
+            "July", "August", "September",
+            "October", "November", "December"
+        };
+
+        public int Count => expenses_.Count;
+
         public LocalRepository(ILogger logger)
         {
             logger_ = logger;
@@ -54,7 +63,8 @@ namespace GovernmentExpenses.Expenses.Repository
                 expense.Data = Tuple.Create((int)(long)idx, item);
                 expense.Id = (int)(long)item[0];
                 expense.AnoMovimentacao = (int)(long)item[1];
-                expense.MesMovimentacao = (int)(long)item[2];
+                var month = (int)(long)item[2];
+                expense.MesMovimentacao     = new ExpensePair<int>(month,MonthNames[month--]);
                 expense.Orgao               = new ExpensePair<int>((int)(long)item[3], (string)item[4]);
                 expense.Unidade             = new ExpensePair<float>((float)(double)item[5], (string)item[6]);
                 expense.CategoriaEconomica  = new ExpensePair<int>((int)(long)item[7], (string)item[8]);
@@ -95,7 +105,7 @@ namespace GovernmentExpenses.Expenses.Repository
                 throw e; 
             }
         }
-        public IList<Expense> All()
+        public IEnumerable<Expense> All()
         {
             return expenses_.Cast<Expense>().ToList();
         }
@@ -120,9 +130,10 @@ namespace GovernmentExpenses.Expenses.Repository
             throw new NotImplementedException();
         }
 
-        public IList<Expense> Where(Func<Expense, bool> predicate)
+        public IEnumerable<Expense> Where(Func<Expense, bool> predicate)
         {
             return expenses_.Where(predicate).ToList();
         }
+
     }
 }

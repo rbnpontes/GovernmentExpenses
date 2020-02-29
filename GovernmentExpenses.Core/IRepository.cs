@@ -7,8 +7,9 @@ namespace GovernmentExpenses.Core
 {
     public interface IRepository<T>
     {
-        IList<T> All();
-        IList<T> Where(Func<T, bool> predicate);
+        IEnumerable<T> All();
+        IEnumerable<T> Where(Func<T, bool> predicate);
+        int Count { get; }
         void Update(T item);
         void Remove(T item);
         void Insert(T item);

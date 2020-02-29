@@ -10,25 +10,37 @@ namespace GovernmentExpenses.Expenses.Services
     {
         IExpenseResult FetchTotalExpenses();
         IDictionary<string, IExpenseResult> FetchTotalExpensesByProp(string prop);
-        IDictionary<string, IReadOnlyList<ExpenseDTO>> FetchExpensesGroupByProp(string prop, int page = 0, int pageSize = 10, string orderBy = "", bool orderDesc = false);
-        IReadOnlyList<ExpenseDTO> FetchAll(int page = 0, int pageSize = 10, string orderBy = "id", bool orderDesc = false);
+        IEnumerable<string> FetchExpensesOrderKeys(bool? orderDesc);
+        IEnumerable<string> FetchExpensesKeys(bool? orderDesc);
+        IReadOnlyList<ExpenseDTO> FetchAll(int page = 0, int pageSize = 10, string orderBy = null, bool? orderDesc = null);
+        IDictionary<string, IReadOnlyList<ExpenseDTO>> FetchExpensesGroupByProp(string prop, int page = 0, int pageSize = 10, string orderBy = null, bool? orderDesc = null);
         IReadOnlyList<IExpensePair> FetchEnum(string prop, string orderBy = null, bool? orderDesc = null);
         IEnumerable<string> FetchEnumKeys(bool? orderDesc);
+        int ExpensesCount { get; }
     }
     internal partial class ExpenseService : IExpenseService
     {
-        private IEnumerable<Expense> TryOrderList(IEnumerable<Expense> list, string orderBy, bool desc)
+        private IEnumerable<Expense> TryOrderList(IEnumerable<Expense> list, string orderBy = null, bool? orderDesc = null)
         {
             if (string.IsNullOrEmpty(orderBy) || !OrderKeyPairs.ContainsKey(orderBy))
-                return list;
-            if (desc)
-                return list.OrderByDescending(OrderKeyPairs[orderBy]);
-            return list.OrderBy(OrderKeyPairs[orderBy]);
+                orderDesc = orderDesc ?? false;
+            else if (orderDesc != null)
+                orderBy = "id";
+            return list.Order(orderDesc, OrderKeyPairs[orderBy]);
         }
-        public IReadOnlyList<ExpenseDTO> FetchAll(int page = 0, int pageSize = 10, string orderBy = "id", bool orderDesc = false)
+        public int ExpensesCount { get => Repository.Count; }
+        public IReadOnlyList<ExpenseDTO> FetchAll(int page = 0, int pageSize = 10, string orderBy = null, bool? orderDesc = null)
         {
-            var values = TryOrderList(Repository.All().Page(page, pageSize), orderBy, orderDesc);
+            var values = TryOrderList(Repository.All(), orderBy, orderDesc).Page(page, pageSize);
             return values.Select(x => new ExpenseDTO(x)).ToList().AsReadOnly();
+        }
+        public IEnumerable<string> FetchExpensesOrderKeys(bool? orderDesc = null)
+        {
+            return OrderKeyPairs.Keys.Order(orderDesc, x => x);
+        }
+        public IEnumerable<string> FetchExpensesKeys(bool? orderDesc = null)
+        {
+            return ExpensesKeyPairs.Keys.Order(orderDesc, x => x);
         }
         public IReadOnlyList<IExpensePair> FetchEnum(string prop, string orderBy = null, bool? orderDesc = null)
         {
@@ -42,35 +54,27 @@ namespace GovernmentExpenses.Expenses.Services
                 orderBy = "code";
 
             Func<IExpensePair, object> predicate = (x) => orderBy == "code" ? x.Code : x.Name;
-            if(orderDesc != null)
-            values = orderDesc.Value ? values.OrderByDescending(predicate) : values.OrderBy(predicate);
-
-            return values.ToList().AsReadOnly();
+            return values.Order(orderDesc, predicate).ToList().AsReadOnly();
         }
         public IEnumerable<string> FetchEnumKeys(bool? orderDesc)
         {
-            var keys = EnumKeyPairs.Keys;
-            if (orderDesc == null)
-                return keys;
-            if (orderDesc.Value)
-                return keys.OrderByDescending(x => x);
-            return keys.OrderBy(x => x);
+            return EnumKeyPairs.Keys.Order(orderDesc, x => x);
         }
-        public IDictionary<string, IReadOnlyList<ExpenseDTO>> FetchExpensesGroupByProp(string prop, int page = 0, int pageSize = 10, string orderBy = "", bool orderDesc = false)
+        public IDictionary<string, IReadOnlyList<ExpenseDTO>> FetchExpensesGroupByProp(string prop, int page = 0, int pageSize = 10, string orderBy = null, bool? orderDesc = null)
         {
             throw new NotImplementedException();
         }
         public IExpenseResult FetchTotalExpenses()
         {
             float totalCommited = 0;
-            float totalSettled  = 0;
-            float totalPayed    = 0;
-            Repository.All().ToList().ForEach(x =>
+            float totalSettled = 0;
+            float totalPayed = 0;
+            foreach (var x in Repository.All())
             {
                 totalCommited += Utils.ParseCurrency(x.ValorEmpenhado);
                 totalSettled += Utils.ParseCurrency(x.ValorLiquidado);
                 totalPayed += Utils.ParseCurrency(x.ValorPago);
-            });
+            }
             return new ExpenseResult
             {
                 TotalCommited = totalCommited,
@@ -84,11 +88,13 @@ namespace GovernmentExpenses.Expenses.Services
             if (!ExpensesKeyPairs.ContainsKey(prop))
                 return result;
             var enums = FetchEnum(prop);
-            var codes = enums.Select(x => x.Code).ToList();
+            var codes = enums.Select(x => x.Code);
             float totalCommited = 0;
-            float totalSettled  = 0;
-            float totalPayed    = 0;
-            (Repository.Where(ExpensesKeyPairs[prop](codes)) as List<Expense>).ForEach(x =>
+            float totalSettled = 0;
+            float totalPayed = 0;
+            ExpenseResult expenseResult = null;
+            var expenses = Repository.Where(ExpensesKeyPairs[prop](codes));
+            foreach (var x in expenses)
             {
                 var expPair = EnumKeyPairs[prop](x);
                 totalCommited = Utils.ParseCurrency(x.ValorEmpenhado);
@@ -102,14 +108,16 @@ namespace GovernmentExpenses.Expenses.Services
                         TotalSettled = totalSettled,
                         TotalPayed = totalPayed
                     };
-                } else
-                {
-                    var expResult = result[expPair.Name]as ExpenseResult;
-                    expResult.TotalCommited += totalCommited;
-                    expResult.TotalSettled += totalSettled;
-                    expResult.TotalPayed += totalPayed;
                 }
-            });
+                else
+                {
+                    expenseResult = result[expPair.Name] as ExpenseResult;
+                    expenseResult.TotalCommited += totalCommited;
+                    expenseResult.TotalSettled += totalSettled;
+                    expenseResult.TotalPayed += totalPayed;
+                }
+
+            }
             return result;
         }
 

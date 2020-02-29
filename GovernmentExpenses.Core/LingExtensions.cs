@@ -11,6 +11,14 @@ namespace GovernmentExpenses.Core
         {
             return source.Skip((page - 1) * pageSize).Take(pageSize);
         }
+        public static IEnumerable<TSource> Order<TSource,TKey>(this IEnumerable<TSource> data, bool? desc, Func<TSource, TKey> predicate)
+        {
+            if (desc == null)
+                return data;
+            else if (desc.Value)
+                return data.OrderByDescending(predicate);
+            return data.OrderBy(predicate);
+        }
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> data, Func<TSource, TKey> predicate)
         {
             HashSet<TKey> sources = new HashSet<TKey>();

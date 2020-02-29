@@ -4,6 +4,7 @@ using GovernmentExpenses.Expenses.Repository;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace GovernmentExpenses.Expenses.Services
@@ -34,7 +35,7 @@ namespace GovernmentExpenses.Expenses.Services
         {
             {"id", (x) => x.Id},
             {"ano_movimentacao", (x) => x.AnoMovimentacao},
-            {"mes_movimentacao", (x)=> x.MesMovimentacao},
+            {"mes_movimentacao", (x)=> x.MesMovimentacao.Code},
             {"orgao", (x) => x.Orgao.Code},
             {"unidade", (x)=> x.Unidade.Code},
             {"categoria",(x)=> x.CategoriaEconomica.Code},
@@ -75,8 +76,9 @@ namespace GovernmentExpenses.Expenses.Services
             {"empenho_mod",     (x)=> x.EmpenhoModalidade },
             {"credor",          (x)=> x.Credor},
             {"mod_licitacao",   (x)=> x.ModalidadeLicitacao },
+            {"mes_movimentacao",(x)=> x.MesMovimentacao}
         };
-        private readonly Dictionary<string, Func<IList<object>, Func<Expense, bool>>> ExpensesKeyPairs = new Dictionary<string, Func<IList<object>, Func<Expense, bool>>>
+        private readonly Dictionary<string, Func<IEnumerable<object>, Func<Expense, bool>>> ExpensesKeyPairs = new Dictionary<string, Func<IEnumerable<object>, Func<Expense, bool>>>
         {
             {"orgao",           (values) => (x) => values.Contains(x.Orgao.Code)},
             {"unidade",         (values) => (x) => values.Contains(x.Unidade.Code)},
@@ -92,7 +94,8 @@ namespace GovernmentExpenses.Expenses.Services
             {"fonte_recurso",   (values) => (x) => values.Contains(x.FonteRecurso.Code)},
             {"empenho_mod",     (values) => (x) => values.Contains(x.EmpenhoModalidade.Code)},
             {"credor",          (values) => (x) => values.Contains(x.Credor.Code)},
-            {"mod_licitacao",   (values) => (x) => values.Contains(x.ModalidadeLicitacao.Code)}
+            {"mod_licitacao",   (values) => (x) => values.Contains(x.ModalidadeLicitacao.Code)},
+            {"mes_movimentacao",(values) => (x) => values.Contains(x.MesMovimentacao)}
         };
         #endregion
         public ExpenseService(ILogger logger)

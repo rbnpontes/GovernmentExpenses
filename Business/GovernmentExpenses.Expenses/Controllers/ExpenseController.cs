@@ -17,6 +17,13 @@ namespace GovernmentExpenses.Expenses.Controllers
         {
             service_ = service;
         }
+        private IDictionary<string, IEnumerable<string>> GetOrderKeyData(IEnumerable<string> values)
+        {
+            return new Dictionary<string, IEnumerable<string>>
+            {
+                {"items", values}
+            };
+        }
         /// <summary>
         /// Retrieve a Basic Description from Routes to this Controller
         /// </summary>
@@ -30,7 +37,31 @@ namespace GovernmentExpenses.Expenses.Controllers
         [HttpGet]
         public object Get()
         {
+        }
+        [HttpGet("desc")]
+        public object GetDesc()
+        {
             return RoutersDesc;
+        }
+        [HttpGet("order-keys")]
+        public IDictionary<string, IEnumerable<string>> GetExpensesOrderKeys([FromQuery(Name ="orderDesc")]bool? desc)
+        {
+            return GetOrderKeyData(service_.FetchExpensesOrderKeys(desc));
+        }
+        [HttpGet("total")]
+        public IExpenseResult GetTotalExpenses()
+        {
+            return service_.FetchTotalExpenses();
+        }
+        [HttpGet("total/{prop}")]
+        public IDictionary<string,IExpenseResult> GetTotalPerGroup(string prop)
+        {
+            return service_.FetchTotalExpensesByProp(prop);
+        }
+        [HttpGet("total/{prop}/keys")]
+        public IDictionary<string, IEnumerable<string>> GetTotalPerGroupKeys([FromQuery(Name = "orderDesc")]bool? desc)
+        {
+            return GetOrderKeyData(service_.FetchExpensesKeys(desc));
         }
         /// <summary>
         /// Retrieve Enums used by prop of <see cref="ExpenseDTO"/>.
@@ -50,6 +81,11 @@ namespace GovernmentExpenses.Expenses.Controllers
         {
             return service_.FetchEnum(prop, orderBy, orderDesc);
         }
+        [HttpGet("enums/order-keys")]
+        public IDictionary<string, IEnumerable<string>> GetEnumsOrderKeys()
+        {
+            return GetOrderKeyData(new string[] { "code", "name" });
+        }
         /// <summary>
         /// Retrieve all Enum Properties
         /// </summary>
@@ -62,12 +98,9 @@ namespace GovernmentExpenses.Expenses.Controllers
         /// <param name="orderDesc">Order by descending</param>
         /// <returns></returns>
         [HttpGet("enums/keys")]
-        public Dictionary<string, IEnumerable<string>> GetEnumKeys([FromQuery(Name = "desc")]bool? orderDesc)
+        public IDictionary<string, IEnumerable<string>> GetEnumKeys([FromQuery(Name = "desc")]bool? orderDesc)
         {
-            return new Dictionary<string, IEnumerable<string>>
-            {
-                {"items", service_.FetchEnumKeys(orderDesc)}
-            };
+            return GetOrderKeyData(service_.FetchEnumKeys(orderDesc));
         }
     }
 }

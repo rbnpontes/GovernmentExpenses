@@ -25,7 +25,7 @@ namespace GovernmentExpenses.Expenses.Entities
     {
         public int Id { get; set; }
         public int AnoMovimentacao { get; set; }
-        public int MesMovimentacao { get; set; }
+        public ExpensePair<int> MesMovimentacao { get; set; }
         public ExpensePair<int> Orgao { get; set; }
         public ExpensePair<float> Unidade { get; set; }
         public ExpensePair<int> CategoriaEconomica { get; set; }
