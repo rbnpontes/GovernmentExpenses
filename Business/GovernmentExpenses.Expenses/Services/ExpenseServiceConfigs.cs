@@ -21,6 +21,15 @@ namespace GovernmentExpenses.Expenses.Services
                 return repository_;
             }
         }
+        #region Lambda Pairs
+        /**
+         * This pairs is used for handle a "generic" external property
+         * I know I could use LINQ's "Expression" class, but for performances
+         * issues i've decide to use a Pre-compiled Expression by Rosyln Compiler and
+         * instead of creating at run time.
+         * I think this is not best way but Dictionary can be offer a necessary speed
+         * to system.
+         */
         private readonly Dictionary<string, Func<Expense, object>> OrderKeyPairs = new Dictionary<string, Func<Expense, object>>
         {
             {"id", (x) => x.Id},
@@ -67,6 +76,25 @@ namespace GovernmentExpenses.Expenses.Services
             {"credor",          (x)=> x.Credor},
             {"mod_licitacao",   (x)=> x.ModalidadeLicitacao },
         };
+        private readonly Dictionary<string, Func<IList<object>, Func<Expense, bool>>> ExpensesKeyPairs = new Dictionary<string, Func<IList<object>, Func<Expense, bool>>>
+        {
+            {"orgao",           (values) => (x) => values.Contains(x.Orgao.Code)},
+            {"unidade",         (values) => (x) => values.Contains(x.Unidade.Code)},
+            {"categoria",       (values) => (x) => values.Contains(x.CategoriaEconomica.Code)},
+            {"grupo",           (values) => (x) => values.Contains(x.GrupoDespesa.Code)},
+            {"mod_aplicacao",   (values) => (x) => values.Contains(x.ModalidadeAplicacao.Code)},
+            {"elemento",        (values) => (x) => values.Contains(x.Elemento.Code)},
+            {"sub_elemento",    (values) => (x) => values.Contains(x.SubElemento.Code)},
+            {"funcao",          (values) => (x) => values.Contains(x.Funcao.Code)},
+            {"sub_funcao",      (values) => (x) => values.Contains(x.SubFuncao.Code)},
+            {"programa",        (values) => (x) => values.Contains(x.Programa.Code)},
+            {"acao",            (values) => (x) => values.Contains(x.Acao.Code)},
+            {"fonte_recurso",   (values) => (x) => values.Contains(x.FonteRecurso.Code)},
+            {"empenho_mod",     (values) => (x) => values.Contains(x.EmpenhoModalidade.Code)},
+            {"credor",          (values) => (x) => values.Contains(x.Credor.Code)},
+            {"mod_licitacao",   (values) => (x) => values.Contains(x.ModalidadeLicitacao.Code)}
+        };
+        #endregion
         public ExpenseService(ILogger logger)
         {
             Logger = logger;

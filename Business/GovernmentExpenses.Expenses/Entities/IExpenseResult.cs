@@ -6,14 +6,14 @@ namespace GovernmentExpenses.Expenses.Entities
 {
     public interface IExpenseResult
     {
-        int TotalCommited { get; }
-        int TotalPayed { get; }
-        int TotalSettled { get; }
+        float TotalCommited { get; }
+        float TotalPayed { get; }
+        float TotalSettled { get; }
     }
     internal sealed class ExpenseResult : IExpenseResult
     {
-        public int TotalCommited { get; set; }
-        public int TotalPayed { get; set; }
-        public int TotalSettled { get; set; }
+        public float TotalCommited { get; set; }
+        public float TotalPayed { get; set; }
+        public float TotalSettled { get; set; }
     }
 }

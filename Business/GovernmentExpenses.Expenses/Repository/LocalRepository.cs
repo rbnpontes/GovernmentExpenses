@@ -120,9 +120,9 @@ namespace GovernmentExpenses.Expenses.Repository
             throw new NotImplementedException();
         }
 
-        public IList<Expense> Where(Expression<Func<Expense, bool>> predicate)
+        public IList<Expense> Where(Func<Expense, bool> predicate)
         {
-            throw new NotImplementedException();
+            return expenses_.Where(predicate).ToList();
         }
     }
 }

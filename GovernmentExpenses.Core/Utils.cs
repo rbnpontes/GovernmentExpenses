@@ -8,6 +8,12 @@ namespace GovernmentExpenses.Core
 {
     public sealed class Utils
     {
+        public static float ParseCurrency(string value)
+        {
+            float result = 0;
+            float.TryParse(value.Replace(",", "."), out result);
+            return result;
+        }
         public static T DeserializeFile<T>(string path)
         {
             T result = default(T);

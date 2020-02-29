@@ -62,11 +62,55 @@ namespace GovernmentExpenses.Expenses.Services
         }
         public IExpenseResult FetchTotalExpenses()
         {
-            throw new NotImplementedException();
+            float totalCommited = 0;
+            float totalSettled  = 0;
+            float totalPayed    = 0;
+            Repository.All().ToList().ForEach(x =>
+            {
+                totalCommited += Utils.ParseCurrency(x.ValorEmpenhado);
+                totalSettled += Utils.ParseCurrency(x.ValorLiquidado);
+                totalPayed += Utils.ParseCurrency(x.ValorPago);
+            });
+            return new ExpenseResult
+            {
+                TotalCommited = totalCommited,
+                TotalSettled = totalSettled,
+                TotalPayed = totalPayed
+            };
         }
         public IDictionary<string, IExpenseResult> FetchTotalExpensesByProp(string prop)
         {
-            throw new NotImplementedException();
+            Dictionary<string, IExpenseResult> result = new Dictionary<string, IExpenseResult>();
+            if (!ExpensesKeyPairs.ContainsKey(prop))
+                return result;
+            var enums = FetchEnum(prop);
+            var codes = enums.Select(x => x.Code).ToList();
+            float totalCommited = 0;
+            float totalSettled  = 0;
+            float totalPayed    = 0;
+            (Repository.Where(ExpensesKeyPairs[prop](codes)) as List<Expense>).ForEach(x =>
+            {
+                var expPair = EnumKeyPairs[prop](x);
+                totalCommited = Utils.ParseCurrency(x.ValorEmpenhado);
+                totalSettled = Utils.ParseCurrency(x.ValorLiquidado);
+                totalPayed = Utils.ParseCurrency(x.ValorPago);
+                if (!result.ContainsKey(expPair.Name))
+                {
+                    result[expPair.Name] = new ExpenseResult
+                    {
+                        TotalCommited = totalCommited,
+                        TotalSettled = totalSettled,
+                        TotalPayed = totalPayed
+                    };
+                } else
+                {
+                    var expResult = result[expPair.Name]as ExpenseResult;
+                    expResult.TotalCommited += totalCommited;
+                    expResult.TotalSettled += totalSettled;
+                    expResult.TotalPayed += totalPayed;
+                }
+            });
+            return result;
         }
 
     }
