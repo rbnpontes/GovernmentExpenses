@@ -41,7 +41,7 @@ namespace GovernmentExpenses.Expenses.Entities
         public int EmpenhoAno { get; set; }
         public ExpensePair<int> EmpenhoModalidade { get; set; }
         public int EmpenhoNumero { get; set; }
-        public int SubEmpenho { get; set; }
+        public int? SubEmpenho { get; set; }
         public string IndicadorSubEmpenho { get; set; }
         public ExpensePair<int> Credor { get; set; }
         public ExpensePair<int> ModalidadeLicitacao { get; set; }
@@ -73,6 +73,7 @@ namespace GovernmentExpenses.Expenses.Entities
             EmpenhoNumero = expense.EmpenhoNumero;
             SubEmpenho = expense.SubEmpenho;
             IndicadorSubEmpenho = expense.IndicadorSubEmpenho;
+            Credor = expense.Credor;
             ModalidadeLicitacao = expense.ModalidadeLicitacao;
             ValorEmpenhado = expense.ValorEmpenhado;
             ValorLiquidado = expense.ValorLiquidado;

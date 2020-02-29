@@ -149,7 +149,7 @@ namespace GovernmentExpenses.Expenses.Controllers
         /// <param name="orderBy">Order by property</param>
         /// <param name="orderDesc">Order by descending</param>
         /// <returns>Returns a list of Expenses</returns>
-        [HttpGet("group/{groupCode}/{groupProp}")]
+        [HttpGet("group/{groupProp}/{groupCode}")]
         public Pager<ExpenseDTO> GetExpensesFromGroup(
             float groupCode,
             string groupProp,

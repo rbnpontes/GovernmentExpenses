@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 // If use firebase, use Firebase Repository instead local.
-#if FIREBASE
-using InternalRepository = GovernmentExpenses.Expenses.Repository.FirebaseRepository;
+#if SPREADSHEET
+using InternalRepository = GovernmentExpenses.Expenses.Repository.SpreadsheetRepository;
 #else
 using InternalRepository = GovernmentExpenses.Expenses.Repository.LocalRepository;
 #endif

@@ -195,7 +195,7 @@ namespace GovernmentExpenses.Expenses.Services
         {
             if (string.IsNullOrEmpty(second))
                 return first;
-            return Utils.ParseCurrency(first).ToString().Replace(".", ",");
+            return Utils.ParseCurrency(second).ToString().Replace(".", ",");
         }
         public ExpenseDTO TryEditExpense(int id, ExpenseForm form)
         {

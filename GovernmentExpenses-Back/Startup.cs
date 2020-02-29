@@ -78,7 +78,7 @@ namespace GovernmentExpenses
         {
             ConfigurePlugins(services);
             services.AddControllers();
-
+#if SWAGGER
             // Swagger Generation: https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio
             services.AddSwaggerGen(c =>
             {
@@ -101,6 +101,7 @@ namespace GovernmentExpenses
                 });
                 Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "Docs").ToList().ForEach(x => c.IncludeXmlComments(x));
             });
+#endif
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -117,13 +118,13 @@ namespace GovernmentExpenses
             app.UseRouting();
 
             app.UseAuthorization();
-
+#if SWAGGER
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "GovernmentExpenses API V1");
             });
-
+#endif
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -22,6 +22,6 @@ namespace GovernmentExpenses.Expenses.Entities
     internal sealed class InternalExpense : Expense
     {
         // (idx, values[])
-        public Tuple<int, IList<object>> Data { get; set; }
+        public IList<object> Data { get; set; }
     }
 }
