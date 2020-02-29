@@ -1,4 +1,5 @@
 ﻿using GovernmentExpenses.Core;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,11 +8,39 @@ namespace GovernmentExpenses.Expenses.Controllers
 {
     public partial class ExpenseController
     {
-        public readonly IList<RouterDesc> RoutersDesc = new List<RouterDesc>
+        /// <summary>
+        /// Retrieve all Orderable Properties used in a List of Expenses
+        /// </summary>
+        /// <param name="desc">Order by descending</param>
+        /// <returns>Returns a List of Orderable Properties</returns>
+        [HttpGet("order-keys")]
+        [HttpGet("search/order-keys")]
+        [HttpGet("group/order-keys")]
+        public IDictionary<string, IEnumerable<string>> GetExpensesOrderKeys([FromQuery(Name = "orderDesc")]bool? desc)
         {
-            new RouterDesc{ Route = "/api/expenses/enums", Desc = "Retrieve Descriptions of Routes"},
-            new RouterDesc{ Route = "/api/expenses/enums/:prop", Desc="Retrieve all enums by specific property", QueryParams="(OPTIONAL)orderBy=string;(OPTIONAL)orderDesc=boolean"},
-            new RouterDesc{ Route = "/api/expenses/enums/keys", Desc="Retrieve all keys used for Group entities or Enums", QueryParams="(OPTIONAL)desc=boolean"}
-        };
+            return GetOrderKeyData(service_.FetchExpensesOrderKeys(desc));
+        }
+        /// <summary>
+        /// Retrieve all Properties used in a Expenses
+        /// </summary>
+        /// <param name="desc"></param>
+        /// <returns>Returns a list of Properties</returns>
+        [HttpGet("keys")]
+        [HttpGet("search/keys")]
+        [HttpGet("total/{prop}/keys")]
+        [HttpGet("group/keys")]
+        public IDictionary<string, IEnumerable<string>> GetExpensesProperties([FromQuery(Name = "orderDesc")]bool? desc)
+        {
+            return GetOrderKeyData(service_.FetchExpensesKeys(desc));
+        }
+        /// <summary>
+        /// Return all Orderable Properties used in a Enums
+        /// </summary>
+        /// <returns>Returns a List of Orderable Properties</returns>
+        [HttpGet("enums/order-keys")]
+        public IDictionary<string, IEnumerable<string>> GetEnumsOrderKeys()
+        {
+            return GetOrderKeyData(new string[] { "code", "name" });
+        }
     }
 }

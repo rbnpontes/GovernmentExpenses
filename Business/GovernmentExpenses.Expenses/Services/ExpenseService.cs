@@ -12,10 +12,14 @@ namespace GovernmentExpenses.Expenses.Services
         IDictionary<string, IExpenseResult> FetchTotalExpensesByProp(string prop);
         IEnumerable<string> FetchExpensesOrderKeys(bool? orderDesc);
         IEnumerable<string> FetchExpensesKeys(bool? orderDesc);
-        IReadOnlyList<ExpenseDTO> FetchAll(int page = 0, int pageSize = 10, string orderBy = null, bool? orderDesc = null);
-        IDictionary<string, IReadOnlyList<ExpenseDTO>> FetchExpensesGroupByProp(string prop, int page = 0, int pageSize = 10, string orderBy = null, bool? orderDesc = null);
+        IEnumerable<ExpenseDTO> FetchSearch(string criteria, string prop = null, string orderBy = null, bool? orderDesc = null);
+        IEnumerable<ExpenseDTO> FetchAll(string orderBy = null, bool? orderDesc = null);
+        IDictionary<string, IExpenseGroup> FetchExpensesGroupByProp(string prop);
+        IEnumerable<ExpenseDTO> FetchExpenseGroupItems(string prop, object[] groupCode, string orderBy = null, bool? orderDesc = null);
+        IEnumerable<ExpenseDTO> FetchExpenseGroupItems(string prop, object groupCode, string orderBy = null, bool? orderDesc = null);
         IReadOnlyList<IExpensePair> FetchEnum(string prop, string orderBy = null, bool? orderDesc = null);
         IEnumerable<string> FetchEnumKeys(bool? orderDesc);
+        ExpenseDTO TryEditExpense(int id, ExpenseForm form);
         int ExpensesCount { get; }
     }
     internal partial class ExpenseService : IExpenseService
@@ -29,10 +33,9 @@ namespace GovernmentExpenses.Expenses.Services
             return list.Order(orderDesc, OrderKeyPairs[orderBy]);
         }
         public int ExpensesCount { get => Repository.Count; }
-        public IReadOnlyList<ExpenseDTO> FetchAll(int page = 0, int pageSize = 10, string orderBy = null, bool? orderDesc = null)
+        public IEnumerable<ExpenseDTO> FetchAll(string orderBy = null, bool? orderDesc = null)
         {
-            var values = TryOrderList(Repository.All(), orderBy, orderDesc).Page(page, pageSize);
-            return values.Select(x => new ExpenseDTO(x)).ToList().AsReadOnly();
+            return FetchSearch(null, null, orderBy, orderDesc);
         }
         public IEnumerable<string> FetchExpensesOrderKeys(bool? orderDesc = null)
         {
@@ -60,9 +63,20 @@ namespace GovernmentExpenses.Expenses.Services
         {
             return EnumKeyPairs.Keys.Order(orderDesc, x => x);
         }
-        public IDictionary<string, IReadOnlyList<ExpenseDTO>> FetchExpensesGroupByProp(string prop, int page = 0, int pageSize = 10, string orderBy = null, bool? orderDesc = null)
+        public IDictionary<string, IExpenseGroup> FetchExpensesGroupByProp(string prop)
         {
-            throw new NotImplementedException();
+            Dictionary<string, IExpenseGroup> result = new Dictionary<string, IExpenseGroup>();
+            if (!EnumKeyPairs.ContainsKey(prop))
+                return result;
+            foreach (var expense in Repository.All())
+            {
+                var pair = EnumKeyPairs[prop](expense);
+                if (result.ContainsKey(pair.Name))
+                    (result[pair.Name] as ExpenseGroup).ItemsCount++;
+                else
+                    result[pair.Name] = new ExpenseGroup { ItemsCount = 1, Id = pair.Code };
+            }
+            return result;
         }
         public IExpenseResult FetchTotalExpenses()
         {
@@ -120,6 +134,95 @@ namespace GovernmentExpenses.Expenses.Services
             }
             return result;
         }
+        /// <summary>
+        /// Try Search a Expense by a specific string
+        /// </summary>
+        /// <param name="criteria">Search String</param>
+        /// <param name="prop">Property that been search</param>
+        /// <returns>Returns a Delegate for inkove on a LINQ Queries</returns>
+        private Func<Expense, bool> TrySearch(string criteria, string prop)
+        {
+            // Prevent unhandled strings like: ç, é, ã, í, é, ...
+            criteria = criteria.RemoveDiacritics();
+            return (x) =>
+            {
+                // If prop is null or empty, search for all possible members
+                if (string.IsNullOrEmpty(prop))
+                {
+                    // Store Enum Cases
+                    var enumCases = new string[EnumKeyPairs.Count];
+                    // Store All non-enum cases, like Currency values.
+                    var otherCases = new string[]
+                    {
+                    x.EmpenhoAno.ToString(),
+                    x.EmpenhoNumero.ToString(),
+                    x.SubEmpenho.ToString(),
+                    x.IndicadorSubEmpenho.ToLower(),
+                    x.ValorEmpenhado,
+                    x.ValorPago,
+                    x.ValorLiquidado
+                    };
+                    var keys = EnumKeyPairs.Keys;
+                    for (int i = 0; i < keys.Count; i++)
+                        enumCases[i] = EnumKeyPairs[keys.ElementAt(i)](x).Name.ToLower().RemoveDiacritics();
+                    // Check if criteria matches in cases
+                    return enumCases.Contains(criteria) || otherCases.Contains(criteria);
+                } else {
+                    if (!EnumKeyPairs.ContainsKey(prop))
+                        return true;
+                    return EnumKeyPairs[prop](x).Name.ToLower().RemoveDiacritics().Contains(criteria);
+                }
+            };
+        }
+        public IEnumerable<ExpenseDTO> FetchSearch(string criteria, string prop = null, string orderBy = null, bool? orderDesc = null)
+        {
+            var values = string.IsNullOrEmpty(criteria) ? Repository.All() : Repository.Where(TrySearch(criteria, prop));
 
+            return TryOrderList(values, orderBy, orderDesc).Select(x => new ExpenseDTO(x));
+        }
+        public IEnumerable<ExpenseDTO> FetchExpenseGroupItems(string prop, object[] groupCode, string orderBy = null, bool? orderDesc = null)
+        {
+            if (!ExpensesKeyPairs.ContainsKey(prop))
+                return new List<ExpenseDTO>();
+            return TryOrderList(Repository.Where(ExpensesKeyPairs[prop](groupCode)), orderBy, orderDesc).Select(x => new ExpenseDTO(x));
+        }
+        public IEnumerable<ExpenseDTO> FetchExpenseGroupItems(string prop, object groupId, string orderBy = null, bool? orderDesc = null)
+        {
+            return FetchExpenseGroupItems(prop, new object[] { groupId }, orderBy, orderDesc);
+        }
+
+        public ExpensePair<T> NullCoalescingForPair<T>(ExpensePair<T> first, ExpensePair<T> second)
+        {
+            if (second == null)
+                return first;
+            first.Code = second.Code ?? first.Code;
+            first.Name = NullCoalescingForString(first.Name, second.Name);
+            return first;
+        }
+        public string NullCoalescingForString(string first, string second)
+        {
+            return string.IsNullOrEmpty(second) ? first : second;
+        }
+        public ExpenseDTO TryEditExpense(int id, ExpenseForm form)
+        {
+            var expense = Repository.Where(x => x.Id == id).FirstOrDefault();
+            if (expense == null)
+                throw new KeyNotFoundException($"Not found Expense with this Id(${id}).");
+            expense.AnoMovimentacao = form.AnoMovimentacao ?? expense.AnoMovimentacao;
+            expense.MesMovimentacao = NullCoalescingForPair(expense.MesMovimentacao, form.MesMovimentacao);
+            expense.Orgao = NullCoalescingForPair(expense.Orgao, form.Orgao);
+            expense.Unidade = NullCoalescingForPair(expense.Unidade, form.Unidade);
+            expense.GrupoDespesa = NullCoalescingForPair(expense.GrupoDespesa, form.GrupoDespesa);
+            expense.ModalidadeAplicacao = NullCoalescingForPair(expense.ModalidadeAplicacao, form.ModalidadeAplicacao);
+            expense.Elemento = NullCoalescingForPair(expense.Elemento, form.Elemento);
+            expense.SubElemento = NullCoalescingForPair(expense.SubElemento, form.SubElemento);
+            expense.Funcao = NullCoalescingForPair(expense.Funcao, form.Funcao);
+            expense.SubFuncao = NullCoalescingForPair(expense.SubFuncao, form.SubFuncao);
+            expense.Programa = NullCoalescingForPair(expense.Programa, form.Programa);
+            expense.Acao = NullCoalescingForPair(expense.Acao, form.Acao);
+            expense.FonteRecurso = NullCoalescingForPair(expense.FonteRecurso, form.FonteRecurso);
+            expense.EmpenhoAno = form.EmpenhoAno ?? expense.EmpenhoAno;
+            return new ExpenseDTO(expense);  
+        }
     }
 }

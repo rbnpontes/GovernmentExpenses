@@ -1,13 +1,19 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace GovernmentExpenses.Core
 {
-    public sealed class Utils
+    public static class Utils
     {
+        public static string RemoveDiacritics(this string str)
+        {
+            return string.Concat(str.Normalize(NormalizationForm.FormD).Where(ch => CharUnicodeInfo.GetUnicodeCategory(ch) != UnicodeCategory.NonSpacingMark)).Normalize(NormalizationForm.FormC);
+        }
         public static float ParseCurrency(string value)
         {
             float result = 0;
