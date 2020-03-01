@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChartsModule } from 'ng2-charts';
 import { HomeComponent } from './home.component';
 import { HomeSidebarComponent } from './home-sidebar/home-sidebar.component';
 import { SharedModule } from '../modules/shared/shared.module';
@@ -12,6 +13,7 @@ import { ExpensesComponent } from './expenses/expenses.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardPlaceholderComponent } from './dashboard/dashboard-placeholder/dashboard-placeholder.component';
 import { DashboardMonthlyExpensesComponent } from './dashboard/dashboard-monthly-expenses/dashboard-monthly-expenses.component';
+import { DashboardTotalExpenseGraphComponent } from './dashboard/dashboard-total-expense-graph/dashboard-total-expense-graph.component';
 
 const routes : Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -27,6 +29,7 @@ const routes : Routes = [
     CommonModule,
     BrowserAnimationsModule,
     SharedModule,
+    ChartsModule,
     RouterModule.forRoot(routes)
   ],
   exports: [
@@ -42,7 +45,8 @@ const routes : Routes = [
     DashboardComponent,
     ExpensesComponent,
     DashboardPlaceholderComponent,
-    DashboardMonthlyExpensesComponent
+    DashboardMonthlyExpensesComponent,
+    DashboardTotalExpenseGraphComponent
   ]
 })
 export class HomeModule { }

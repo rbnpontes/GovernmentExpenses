@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import TotalExpenses from './mock/total_expenses.json';
 import { ITotalExpenses } from 'src/models/total.expenses.js';
 import { Observable, of } from 'rxjs';
+import { delay, timeout } from 'rxjs/operators';
 import Dictionary from 'src/models/dictionary.js';
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,6 @@ import Dictionary from 'src/models/dictionary.js';
 export class ExpenseService {
   constructor() { }
   public get MonthlyTotalExpenses() : Observable<Dictionary<ITotalExpenses>>{
-    return of(TotalExpenses);
+    return of(TotalExpenses).pipe(timeout(1000));
   }
 }

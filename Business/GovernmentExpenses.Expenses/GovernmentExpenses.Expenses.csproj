@@ -7,7 +7,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <OutDir>..\..\GovernmentExpenses-Back\bin\Business</OutDir>
-    <DefineConstants>TRACE;DEBUG;SPREADSHEET</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <DocumentationFile>..\..\GovernmentExpenses-Back\bin\Docs\GovernmentExpenses.Expenses.xml</DocumentationFile>
     <NoWarn>1701;1702;CS1591</NoWarn>
   </PropertyGroup>

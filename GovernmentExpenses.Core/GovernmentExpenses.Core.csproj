@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutDir>..\..\GovernmentExpenses-Back\bin</OutDir>
+    <OutDir>..\GovernmentExpenses-Back\bin</OutDir>
   </PropertyGroup>
 
   <ItemGroup>

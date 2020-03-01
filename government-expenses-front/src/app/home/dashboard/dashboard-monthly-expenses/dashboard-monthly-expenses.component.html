@@ -1,6 +1,14 @@
 <div>
   <h3 class="mb-0">Total Monthly Expenses</h3>
 </div>
-<mat-grid-list cols="4">
-
-</mat-grid-list>
+<div class="row">
+  <div class="col-md-3 pb-3" *ngFor="let item of charts;">
+    <dashboard-total-expense-graph [value]="item.result" [title]="item.name"></dashboard-total-expense-graph>
+  </div>
+  <div class="col-md-3 pb-3" *ngIf="data.length > charts.length">
+    <mat-card class="h-100 w-100 justify-content-center align-items-center d-flex" matRipple [matRippleCentered]='true'
+      matTooltip="View more..." (click)="tryLoadMore()">
+      <span class="load-more-items-label">+{{data.length - charts.length}}</span>
+    </mat-card>
+  </div>
+</div>

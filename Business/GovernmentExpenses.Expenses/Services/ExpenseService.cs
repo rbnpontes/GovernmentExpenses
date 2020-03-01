@@ -106,6 +106,7 @@ namespace GovernmentExpenses.Expenses.Services
                 {
                     result[expPair.Name] = new ExpenseResult
                     {
+                        GroupCode = expPair.Code,
                         TotalCommited = totalCommited,
                         TotalSettled = totalSettled,
                         TotalPayed = totalPayed

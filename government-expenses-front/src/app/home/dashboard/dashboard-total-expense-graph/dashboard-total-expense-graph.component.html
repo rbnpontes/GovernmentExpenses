@@ -1,0 +1,13 @@
+<mat-card matRipple (click)="tryRedirect()">
+  <div class="graph" [matTooltip]="tooltipInfo" matTooltipClass="tooltip">
+    <canvas baseChart
+      [data]="chartData"
+      [labels]="['Total Settled', 'Total Commited', 'Total Payed']"
+      [legend]="false"
+      [chartType]="'doughnut'"
+      width="150"
+      height="150">
+    </canvas>
+  </div>
+  <div class="text-center title">{{title}}</div>
+</mat-card>

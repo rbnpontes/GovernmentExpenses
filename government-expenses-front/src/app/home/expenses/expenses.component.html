@@ -1,5 +1,5 @@
 <mat-card>
-  <p>
-    expenses works!
-  </p>
+  <table mat-table [dataSource]="data" matSort matSortActive="created" matSortDisableClear
+    matSortDirection="desc">
+  </table>
 </mat-card>

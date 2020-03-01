@@ -102,6 +102,13 @@ namespace GovernmentExpenses
                 Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "Docs").ToList().ForEach(x => c.IncludeXmlComments(x));
             });
 #endif
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsAll", builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -116,8 +123,8 @@ namespace GovernmentExpenses
             app.UseHttpsRedirection();
 #endif
             app.UseRouting();
-
-            app.UseAuthorization();
+            app.UseCors("CorsAll");
+            //app.UseAuthorization();
 #if SWAGGER
             app.UseSwagger();
             app.UseSwaggerUI(c =>
