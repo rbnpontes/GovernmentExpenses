@@ -3,6 +3,12 @@
     background-color: #FFB300;
     height: 100%;
     color: #fff;
+    a{
+        color: #fff;
+        &:hover{
+            text-decoration: none;
+        }
+    }
     .v-line{
         display: block;
         width: 100%;

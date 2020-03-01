@@ -8,7 +8,7 @@
         <home-toolbar (toggleNav)="showNav = !showNav"></home-toolbar>
         <div class="home-content px-5 pt-5">
           <h1 class="title">{{pageName}}</h1>
-          <mat-card>Hello World</mat-card>
+          <router-outlet #outlet="outlet"></router-outlet>
         </div>
       </div>
     </mat-drawer-content>

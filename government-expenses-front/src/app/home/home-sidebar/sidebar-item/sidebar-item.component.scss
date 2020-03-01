@@ -1,5 +1,10 @@
 :host{
     display: block;
+    color: #fff;
+    text-decoration: none;
+    &:hover{
+        text-decoration: none;
+    }
     .sidebar-item-content{
         padding: 0.8em 0.5em;
         user-select: none;
