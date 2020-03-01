@@ -1,0 +1,14 @@
+// Setup minimum bootstrap
+@import '~bootstrap/scss/bootstrap-grid.scss';
+@import '~bootstrap/scss/bootstrap-reboot.scss';
+@import '~bootstrap/scss/_type.scss';
+@import '~bootstrap/scss/_utilities.scss';
+@import '~bootstrap/scss/_forms.scss';
+// Setup Fontawesome icons
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/regular.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+body{
+    min-height: 100vh;
+}

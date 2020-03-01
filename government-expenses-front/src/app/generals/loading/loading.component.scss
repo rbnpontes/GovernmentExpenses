@@ -1,0 +1,17 @@
+:host{
+    @import '../../../assets/variables_.scss';
+    position: fixed;
+    z-index: $loading-zindex;
+    background-color: #fff;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    .loading-icon{
+        width: 10em;
+        height: 10em;
+        background-image: url('../../../assets/logo-02.svg');
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+}
