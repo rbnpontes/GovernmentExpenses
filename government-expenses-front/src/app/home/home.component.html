@@ -1,10 +1,16 @@
 <div class="home-container h-100">
   <mat-drawer-container class="h-100">
-    <mat-drawer mode="side" [(opened)]="showNav" style="border-right: 1px solid #ffa000;">
+    <mat-drawer mode="side" [(opened)]="showNav" style="border-right: 1px solid #FFB300">
       <home-sidebar></home-sidebar>
     </mat-drawer>
     <mat-drawer-content>
-      <home-toolbar (toggleNav)="showNav = !showNav"></home-toolbar>
+      <div class="d-flex h-100 flex-column w-100">
+        <home-toolbar (toggleNav)="showNav = !showNav"></home-toolbar>
+        <div class="home-content px-5 pt-5">
+          <h1 class="title">{{pageName}}</h1>
+          <mat-card>Hello World</mat-card>
+        </div>
+      </div>
     </mat-drawer-content>
   </mat-drawer-container>
 </div>

@@ -5,6 +5,8 @@ import { HomeSidebarComponent } from './home-sidebar/home-sidebar.component';
 import { SharedModule } from '../modules/shared/shared.module';
 import { HomeToolbarComponent } from './home-toolbar/home-toolbar.component';
 import { UserProfileComponent } from './home-sidebar/user-profile/user-profile.component';
+import { SidebarItemComponent } from './home-sidebar/sidebar-item/sidebar-item.component';
+
 
 @NgModule({
   imports: [
@@ -19,7 +21,8 @@ import { UserProfileComponent } from './home-sidebar/user-profile/user-profile.c
     HomeComponent, 
     HomeSidebarComponent,
     HomeToolbarComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    SidebarItemComponent
   ]
 })
 export class HomeModule { }

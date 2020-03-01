@@ -1,0 +1,11 @@
+:host{
+    display: block;
+    .sidebar-item-content{
+        padding: 0.8em 0.5em;
+        user-select: none;
+        cursor: pointer;
+        &:hover{
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+}

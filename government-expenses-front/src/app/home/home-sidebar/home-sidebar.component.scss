@@ -1,6 +1,14 @@
 :host{
     display: block;
-    background-color: #FFA000;
+    background-color: #FFB300;
     height: 100%;
-    colro: #fff;
+    color: #fff;
+    .v-line{
+        display: block;
+        width: 100%;
+        border-top: 1px solid rgba(0, 0, 0, 0.18);
+    }
+    .home-sidebar{
+        overflow-y: auto;
+    }
 }

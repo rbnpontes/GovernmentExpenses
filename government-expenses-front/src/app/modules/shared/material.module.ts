@@ -33,10 +33,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatRippleModule } from '@angular/material/core';
 
 const MaterialModules = [
     BrowserModule,
     BrowserAnimationsModule,
+    MatRippleModule,
     MatCheckboxModule,
     MatButtonModule,
     MatInputModule,
