@@ -1,3 +1,4 @@
-<div [ngStyle]="{'overflow' : lockScroll ? 'hidden' : 'auto'}">
-  <loading></loading>
+<div class="h-100">
+  <loading [visible]="loading"></loading>
+  <home-app></home-app>
 </div>

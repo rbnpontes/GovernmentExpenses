@@ -1,0 +1,19 @@
+.user-profile-placeholder {
+    padding: {
+        left: 2em;
+        right: 2em;
+    }
+    .user-profile-img {
+		height: 8em;
+		width: 8em;
+		background-color: rgb(255, 255, 255);
+		border-radius: 4em;
+		margin-bottom: 1em;
+    }
+    .user-profile-label{
+        color: #fff;
+        font-weight: 300;
+        text-align: center;
+        text-transform: uppercase;
+    }
+}

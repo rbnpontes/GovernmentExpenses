@@ -1,17 +1,62 @@
-:host{
-    @import '../../../assets/variables_.scss';
-    position: fixed;
-    z-index: $loading-zindex;
-    background-color: #fff;
-    top: 0;
-    left: 0;
-    width: 100%;
+.loading {
+	@import "../../../assets/variables_.scss";
+	position: fixed;
+	z-index: $loading-zindex;
+	background-color: #f2f2f2;
+	background-image: url("../../../assets/bg-loading.png");
+	top: 0;
+	left: 0;
+	width: 100%;
     height: 100%;
-    .loading-icon{
-        width: 10em;
-        height: 10em;
-        background-image: url('../../../assets/logo-02.svg');
-        background-repeat: no-repeat;
-        background-size: contain;
-    }
+	.loading-icon {
+		width: 10em;
+		height: 10em;
+		background-image: url("../../../assets/logo-02.svg");
+		background-repeat: no-repeat;
+		background-size: contain;
+		transform: scale(0);
+		animation: --anim-loading-show-icon;
+		animation-duration: 0.3s;
+		animation-timing-function: cubic-bezier(0.77, 1.37, 0.88, 1.22);
+		animation-fill-mode: forwards;
+		@keyframes --anim-loading-show-icon {
+			0% {
+				transform: scale(0);
+			}
+			100% {
+				transform: scale(1);
+			}
+		}
+	}
+	.loading-label {
+		font-size: 1.4em;
+        color: #c3bebe;
+		text-transform: uppercase;
+		font-weight: bold;
+		text-shadow: 0px -1px 0.2px #636363;
+		margin-top: 0.8em;
+		&::after {
+			content: " ";
+			animation-name: --anim-loading-label;
+			animation-duration: 3s;
+			animation-iteration-count: infinite;
+		}
+		@keyframes --anim-loading-label {
+			0% {
+				content: "";
+			}
+			25% {
+				content: ".";
+			}
+			50% {
+				content: "..";
+			}
+			75% {
+				content: "...";
+			}
+			100% {
+				content: "";
+			}
+		}
+	}
 }

@@ -9,6 +9,22 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
 @import '~@fortawesome/fontawesome-free/scss/regular.scss';
 @import '~@fortawesome/fontawesome-free/scss/solid.scss';
+// Import Angular Theming
+@import '~@angular/material/theming';
+@include mat-core();
+
+$candy-app-primary: mat-palette($mat-amber);
+$candy-app-accent:  mat-palette($mat-pink, A50, A100, A200);
+$candy-app-warn:    mat-palette($mat-red);
+$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+@include angular-material-theme($candy-app-theme);
 body{
-    min-height: 100vh;
+    height: 100vh;
+    // Disable outline on all buttons when goes focus
+    button:focus{
+        outline: none;
+    }
+}
+.lock-scroll{
+    overflow:hidden;
 }

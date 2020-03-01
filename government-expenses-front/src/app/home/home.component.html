@@ -1,0 +1,10 @@
+<div class="home-container h-100">
+  <mat-drawer-container class="h-100">
+    <mat-drawer mode="side" [(opened)]="showNav" style="border-right: 1px solid #ffa000;">
+      <home-sidebar></home-sidebar>
+    </mat-drawer>
+    <mat-drawer-content>
+      <home-toolbar (toggleNav)="showNav = !showNav"></home-toolbar>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>
