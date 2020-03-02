@@ -16,6 +16,8 @@ import { DashboardMonthlyExpensesComponent } from './dashboard/dashboard-monthly
 import { DashboardTotalExpenseGraphComponent } from './dashboard/dashboard-total-expense-graph/dashboard-total-expense-graph.component';
 import { StringCurrencyPipe } from '../generals/string-currency.pipe';
 import { DashboardGenericGraphComponent } from './dashboard/dashboard-generic-graph/dashboard-generic-graph.component';
+import { ExpenseEditComponent } from './expenses/expense-edit/expense-edit.component';
+import { FormsModule } from '@angular/forms';
 
 const routes : Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -32,6 +34,7 @@ const routes : Routes = [
     BrowserAnimationsModule,
     SharedModule,
     ChartsModule,
+    FormsModule,
     RouterModule.forRoot(routes)
   ],
   exports: [
@@ -46,6 +49,7 @@ const routes : Routes = [
     SidebarItemComponent,
     DashboardComponent,
     ExpensesComponent,
+    ExpenseEditComponent,
     DashboardPlaceholderComponent,
     DashboardMonthlyExpensesComponent,
     DashboardTotalExpenseGraphComponent,

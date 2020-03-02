@@ -27,7 +27,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
@@ -39,7 +39,9 @@ const MaterialModules = [
     BrowserModule,
     BrowserAnimationsModule,
     MatRippleModule,
+    MatDialogModule,
     MatCheckboxModule,
+    MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
     MatMenuModule,

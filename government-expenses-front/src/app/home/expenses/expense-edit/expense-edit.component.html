@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>Edit Expense</h1>
+<div mat-dialog-content>
+  <section>
+    <mat-form-field class="w-100">
+      <mat-label>Value Settled</mat-label>
+      <input matInput [(ngModel)]="data.valorEmpenhado" class="w-100">
+    </mat-form-field>
+  </section>
+  <section>
+    <mat-form-field class="w-100">
+      <mat-label>Value Commited</mat-label>
+      <input matInput [(ngModel)]="data.valorLiquidado" class="w-100">
+    </mat-form-field>
+  </section>
+  <section>
+    <mat-form-field class="w-100">
+      <mat-label>Value Payed</mat-label>
+      <input matInput [(ngModel)]="data.valorPago" class="w-100">
+    </mat-form-field>
+  </section>
+</div>
+<div class="d-flex w-100">
+  <div class="col"></div>
+  <div>
+    <button mat-button (click)="tryClose()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data">Ok</button>
+  </div>
+</div>

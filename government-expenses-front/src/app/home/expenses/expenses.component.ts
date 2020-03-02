@@ -5,6 +5,8 @@ import { ExpenseService } from 'src/services/Expense.service';
 import IPager from 'src/models/pager';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ExpenseEditComponent } from './expense-edit/expense-edit.component';
 
 @Component({
   selector: 'app-expenses',
@@ -29,7 +31,11 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
   //(OPTIONAL) This is used for a custom Request
   private query : string = '';
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(home: HomeComponent, private expense: ExpenseService, private router : ActivatedRoute) {
+  constructor(
+    home: HomeComponent, 
+    private expense: ExpenseService, 
+    private router : ActivatedRoute,
+    private matDialog : MatDialog) {
     home.pageName = 'Expenses';
   }
 
@@ -52,5 +58,15 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
     this.pageSize = e.pageSize;
     this.pageIdx = e.pageIndex;
     this.loadExpenses();
+  }
+  public tryEditExpense(expense : IExpense){
+    this.matDialog.open(ExpenseEditComponent, {
+      width: '30em',
+      data : expense
+    }).afterClosed().subscribe(()=> {
+      this.pageIdx = 0;
+      // Force Reload
+      this.loadExpenses();
+    });
   }
 }
