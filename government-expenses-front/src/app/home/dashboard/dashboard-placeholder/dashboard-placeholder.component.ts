@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import IExpensePair from 'src/models/expense.pair';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dashboard-placeholder',
@@ -13,9 +14,11 @@ export class DashboardPlaceholderComponent implements OnInit {
   public label : string;
   @Input()
   public icon : string;
-  constructor() { }
+  constructor(private router : Router) { }
 
   ngOnInit() {
   }
-
+  public redirectToExpense(){
+    this.router.navigate(['/expenses']);
+  }
 }

@@ -43,6 +43,7 @@ const MaterialModules = [
     MatButtonModule,
     MatInputModule,
     MatMenuModule,
+    MatTabsModule,
     MatTableModule,
     MatSidenavModule,
     MatTooltipModule,

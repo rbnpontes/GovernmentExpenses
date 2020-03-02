@@ -15,6 +15,7 @@ interface IExpenseResultData{
 export class DashboardMonthlyExpensesComponent implements OnInit {
   public data : IExpenseResultData[] = [];
   public count : number = 3;
+  public loading : boolean = false;
   public get charts() : IExpenseResultData[]{
     return this.data.slice().splice(0, this.count);
   }
@@ -23,10 +24,12 @@ export class DashboardMonthlyExpensesComponent implements OnInit {
     this.tryLoadData();
   }
   private async tryLoadData(){
+    this.loading = true;
     let values = await this.expense.MonthlyTotalExpenses.toPromise();
     this.data = Object.keys(values).map(key => {
       return {code : values[key].groupCode, name : key, result : values[key]};
     }).sort(x => x.code);
+    this.loading = false;
   }
   public tryLoadMore(){
     this.count += 3;

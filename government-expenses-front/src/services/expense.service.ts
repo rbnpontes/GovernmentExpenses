@@ -5,19 +5,23 @@ import { Observable, of } from 'rxjs';
 import { delay, timeout, map } from 'rxjs/operators';
 import Dictionary from 'src/models/dictionary.js';
 import IExpense from 'src/models/expense.js';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment.js';
 import IPager from 'src/models/pager.js';
 @Injectable({
   providedIn: 'root'
 })
 export class ExpenseService {
+  private API_PATH = environment.apiUrl + 'expenses';
   constructor(private http: HttpClient) { }
+  public get TotalExpenses() : Observable<ITotalExpenses>{
+    return this.http.get<ITotalExpenses>(this.API_PATH+'/total');
+  }
   public get MonthlyTotalExpenses(): Observable<Dictionary<ITotalExpenses>> {
-    return of(TotalExpenses).pipe(timeout(1000));
+    return this.http.get<Dictionary<ITotalExpenses>>(this.API_PATH+'/total/mes_movimentacao');
   }
   public fetchExpensesByQuery(query: string, page: number = 0, pageSize : number = 10): Observable<IPager<IExpense>> {
-    let url = environment.apiUrl + 'expenses' + (query ? query : '');
+    let url = this.API_PATH + (query ? query : '');
     let params = {
       page : page.toString(),
       pageSize : pageSize.toString()

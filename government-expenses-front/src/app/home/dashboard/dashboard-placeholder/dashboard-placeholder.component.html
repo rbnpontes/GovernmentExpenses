@@ -1,8 +1,8 @@
-<mat-card matRipple>
+<mat-card matRipple (click)="redirectToExpense()">
     <div class="dashboard-placeholder d-flex">
         <div class="col px-0">
             <div class="dashboard-placeholder-value">
-                {{value}}
+                {{value | currency:'BRL'}}
             </div>
             <div class="dashboard-placeholder-label">
                 <small>{{label}}</small>
