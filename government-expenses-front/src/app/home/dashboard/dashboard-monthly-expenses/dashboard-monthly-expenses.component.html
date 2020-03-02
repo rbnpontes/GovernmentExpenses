@@ -30,7 +30,7 @@
 </div>
 <div class="row mx-0" *ngIf="!loading">
   <div class="col-md-3 pb-3" *ngFor="let item of charts;">
-    <dashboard-total-expense-graph [value]="item.result" [title]="item.name"></dashboard-total-expense-graph>
+    <dashboard-total-expense-graph [value]="item.result" groupProp="mes_movimentacao" [title]="item.name"></dashboard-total-expense-graph>
   </div>
   <div class="col-md-3 pb-3" *ngIf="data.length > charts.length">
     <mat-card class="h-100 w-100 justify-content-center align-items-center d-flex" matRipple [matRippleCentered]='true'

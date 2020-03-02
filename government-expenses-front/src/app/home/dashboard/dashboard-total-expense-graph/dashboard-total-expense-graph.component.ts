@@ -13,6 +13,8 @@ export class DashboardTotalExpenseGraphComponent implements OnInit {
   @Input()
   public title: string;
   @Input()
+  public groupProp : string;
+  @Input()
   public value: ITotalExpenses;
   public get chartData() {
     return [
@@ -33,7 +35,7 @@ export class DashboardTotalExpenseGraphComponent implements OnInit {
 
   public tryRedirect() {
     if (this.value.groupCode)
-      this.router.navigate(['/expenses'], {queryParams: {q : '/group/mes_movimentacao/' + this.value.groupCode}});
+      this.router.navigate(['/expenses'], {queryParams: {q : '/group/'+this.groupProp+'/' + this.value.groupCode}});
     else
       this.router.navigate(['/expenses']);
   }

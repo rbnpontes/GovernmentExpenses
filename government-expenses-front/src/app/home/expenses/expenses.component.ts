@@ -4,6 +4,7 @@ import IExpense from 'src/models/expense';
 import { ExpenseService } from 'src/services/Expense.service';
 import IPager from 'src/models/pager';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-expenses',
@@ -11,7 +12,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
   styleUrls: ['./expenses.component.scss']
 })
 export class ExpensesComponent implements OnInit, AfterViewInit {
-  public readonly expenseColumns = ['id', 'organ', 'category', 'source', 'value_settled', 'value_commited', 'value_payed'];
+  public readonly expenseColumns = ['id', 'organ', 'category', 'source', 'value_settled', 'value_commited', 'value_payed', 'edit'];
   public readonly pageSizes = [5, 10, 25, 100];
   public pageIdx = 0;
   public loading = false;
@@ -25,19 +26,24 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
   public set pageSize(value : number){
     localStorage.setItem('pageSize', value.toString());
   }
+  //(OPTIONAL) This is used for a custom Request
+  private query : string = '';
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(home: HomeComponent, private expense: ExpenseService) {
+  constructor(home: HomeComponent, private expense: ExpenseService, private router : ActivatedRoute) {
     home.pageName = 'Expenses';
   }
 
   ngOnInit() {
-    this.loadExpenses();
+    this.router.queryParams.subscribe(params => {
+      this.query = params.q ? params.q : '';
+      this.loadExpenses();
+    });
   }
   ngAfterViewInit(): void {
   }
   private loadExpenses() {
     this.loading = true;
-    this.expense.fetchExpensesByQuery('', this.pageIdx, this.pageSize).subscribe(x => {
+    this.expense.fetchExpensesByQuery(this.query, this.pageIdx, this.pageSize).subscribe(x => {
       this.loading = false;
       this.data = x;
     });

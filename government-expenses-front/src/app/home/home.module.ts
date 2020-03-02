@@ -15,6 +15,7 @@ import { DashboardPlaceholderComponent } from './dashboard/dashboard-placeholder
 import { DashboardMonthlyExpensesComponent } from './dashboard/dashboard-monthly-expenses/dashboard-monthly-expenses.component';
 import { DashboardTotalExpenseGraphComponent } from './dashboard/dashboard-total-expense-graph/dashboard-total-expense-graph.component';
 import { StringCurrencyPipe } from '../generals/string-currency.pipe';
+import { DashboardGenericGraphComponent } from './dashboard/dashboard-generic-graph/dashboard-generic-graph.component';
 
 const routes : Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -47,7 +48,8 @@ const routes : Routes = [
     ExpensesComponent,
     DashboardPlaceholderComponent,
     DashboardMonthlyExpensesComponent,
-    DashboardTotalExpenseGraphComponent
+    DashboardTotalExpenseGraphComponent,
+    DashboardGenericGraphComponent
   ]
 })
 export class HomeModule { }

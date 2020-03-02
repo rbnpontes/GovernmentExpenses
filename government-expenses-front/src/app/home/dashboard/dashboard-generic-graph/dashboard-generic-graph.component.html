@@ -1,41 +1,49 @@
-<div class="row mx-0" *ngIf="loading">
-  <div class="col-md-3 pb-3">
-    <mat-card>
-      <div class="w-100 justify-content-center align-items-center d-flex loading-card">
-        <mat-spinner></mat-spinner>
-      </div>
-    </mat-card>
+<div class="d-flex w-100">
+  <!-- LEFT NAV HANDLER -->
+  <div class="d-flex align-items-center">
+    <button (click)="tryNavLeft()" mat-icon-button>
+      <mat-icon>chevron_left</mat-icon>
+    </button>
   </div>
-  <div class="col-md-3 pb-3">
-    <mat-card>
-      <div class="w-100 justify-content-center align-items-center d-flex loading-card">
-        <mat-spinner></mat-spinner>
-      </div>
-    </mat-card>
+  <div class="row mx-0 col px-0" *ngIf="loading">
+    <div class="col-md-3 pb-3">
+      <mat-card>
+        <div class="w-100 justify-content-center align-items-center d-flex loading-card">
+          <mat-spinner></mat-spinner>
+        </div>
+      </mat-card>
+    </div>
+    <div class="col-md-3 pb-3">
+      <mat-card>
+        <div class="w-100 justify-content-center align-items-center d-flex loading-card">
+          <mat-spinner></mat-spinner>
+        </div>
+      </mat-card>
+    </div>
+    <div class="col-md-3 pb-3">
+      <mat-card>
+        <div class="w-100 justify-content-center align-items-center d-flex loading-card">
+          <mat-spinner></mat-spinner>
+        </div>
+      </mat-card>
+    </div>
+    <div class="col-md-3 pb-3">
+      <mat-card>
+        <div class="w-100 justify-content-center align-items-center d-flex loading-card">
+          <mat-spinner></mat-spinner>
+        </div>
+      </mat-card>
+    </div>
   </div>
-  <div class="col-md-3 pb-3">
-    <mat-card>
-      <div class="w-100 justify-content-center align-items-center d-flex loading-card">
-        <mat-spinner></mat-spinner>
-      </div>
-    </mat-card>
+  <div class="row mx-0 col px-0" *ngIf="!loading">
+    <div class="col-md-3 pb-3" *ngFor="let item of chartData;">
+      <dashboard-total-expense-graph [value]="item.result" [groupProp]="groupProp" [title]="item.name"></dashboard-total-expense-graph>
+    </div>
   </div>
-  <div class="col-md-3 pb-3">
-    <mat-card>
-      <div class="w-100 justify-content-center align-items-center d-flex loading-card">
-        <mat-spinner></mat-spinner>
-      </div>
-    </mat-card>
+  <!-- RIGHT NAV HANDLER -->
+  <div class="d-flex align-items-center">
+    <button (click)="tryNavRight()" mat-icon-button>
+      <mat-icon>chevron_right</mat-icon>
+    </button>
   </div>
 </div>
-<!-- <div class="row mx-0" *ngIf="!loading">
-  <div class="col-md-3 pb-3" *ngFor="let item of charts;">
-    <dashboard-total-expense-graph [value]="item.result" [title]="item.name"></dashboard-total-expense-graph>
-  </div>
-  <div class="col-md-3 pb-3" *ngIf="data.length > charts.length">
-    <mat-card class="h-100 w-100 justify-content-center align-items-center d-flex" matRipple [matRippleCentered]='true'
-      matTooltip="View more..." (click)="tryLoadMore()">
-      <span class="load-more-items-label">+{{data.length - charts.length}}</span>
-    </mat-card>
-  </div>
-</div> -->

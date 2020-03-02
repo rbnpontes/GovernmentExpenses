@@ -16,23 +16,23 @@
   <div class="d-flex align-items-right mt-1">
     <div class="col"></div>
     <small>
-      <a>View more.</a>
+      <a routerLink="/expenses">View more.</a>
     </small>
   </div>
   <mat-tab-group animationDuration="0ms" class="mt-3">
     <mat-tab label="Month">
       <section class="pt-3">
-        <dashboard-monthly-expenses></dashboard-monthly-expenses>
+        <dashboard-monthly-expenses [data]="monthlyExpense"></dashboard-monthly-expenses>
       </section>
     </mat-tab>
     <mat-tab label="Categories">
       <section class="pt-3">
-        <dashboard-monthly-expenses></dashboard-monthly-expenses>
+        <dashboard-generic-graph groupProp="categoria" [data]="categoriesExpense"></dashboard-generic-graph>
       </section>
     </mat-tab>
     <mat-tab label="Sources">
       <section class="pt-3">
-        <dashboard-monthly-expenses></dashboard-monthly-expenses>
+        <dashboard-generic-graph groupProp="fonte_recurso" [data]="sourceExpense"></dashboard-generic-graph>
       </section>
     </mat-tab>
   </mat-tab-group>

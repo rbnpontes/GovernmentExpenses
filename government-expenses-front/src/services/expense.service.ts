@@ -20,6 +20,9 @@ export class ExpenseService {
   public get MonthlyTotalExpenses(): Observable<Dictionary<ITotalExpenses>> {
     return this.http.get<Dictionary<ITotalExpenses>>(this.API_PATH+'/total/mes_movimentacao');
   }
+  public fetchTotalExpensesByProp(prop : string) : Observable<Dictionary<ITotalExpenses>>{
+    return this.http.get<Dictionary<ITotalExpenses>>(this.API_PATH+'/total/'+prop);
+  }
   public fetchExpensesByQuery(query: string, page: number = 0, pageSize : number = 10): Observable<IPager<IExpense>> {
     let url = this.API_PATH + (query ? query : '');
     let params = {
