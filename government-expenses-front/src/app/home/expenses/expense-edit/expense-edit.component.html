@@ -3,19 +3,19 @@
   <section>
     <mat-form-field class="w-100">
       <mat-label>Value Settled</mat-label>
-      <input matInput [(ngModel)]="data.valorEmpenhado" class="w-100">
+      <input matInput currencyMask pattern="^\d+(\.|\,)\d{2}$" [(ngModel)]="data.valorEmpenhado" class="w-100">
     </mat-form-field>
   </section>
   <section>
     <mat-form-field class="w-100">
       <mat-label>Value Commited</mat-label>
-      <input matInput [(ngModel)]="data.valorLiquidado" class="w-100">
+      <input matInput currencyMask pattern="^\d+(\.|\,)\d{2}$" [(ngModel)]="data.valorLiquidado" class="w-100">
     </mat-form-field>
   </section>
   <section>
     <mat-form-field class="w-100">
       <mat-label>Value Payed</mat-label>
-      <input matInput [(ngModel)]="data.valorPago" class="w-100">
+      <input matInput currencyMask pattern="^\d+(\.|\,)\d{2}$" [(ngModel)]="data.valorPago" class="w-100">
     </mat-form-field>
   </section>
 </div>
@@ -23,6 +23,6 @@
   <div class="col"></div>
   <div>
     <button mat-button (click)="tryClose()">Cancel</button>
-    <button mat-button [mat-dialog-close]="data">Ok</button>
+    <button mat-button (click)="trySave()">Submit</button>
   </div>
 </div>

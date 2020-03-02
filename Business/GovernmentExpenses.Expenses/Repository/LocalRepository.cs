@@ -51,11 +51,11 @@ namespace GovernmentExpenses.Expenses.Repository
         {
             InternalExpenseData data = new InternalExpenseData();
             data.Fields = fields_;
-            data.Records = (new List<object>[expenses_.Count]);
+            data.Records = (new List<IList<object>>(new IList<object>[expenses_.Count]));
             // Make same step again for recreating rows
             Parallel.ForEach(expenses_, (item, state, idx) =>
             {
-                data.Records[(int)idx] = item.Data = ExpenseUtils.GetArrayFromExpense(item);
+                data.Records[(int)idx] = ExpenseUtils.GetArrayFromExpense(item);
             });
             Utils.SerializeToFile($"{AppDomain.CurrentDomain.BaseDirectory}Artifacts\\db.json", data);
         }

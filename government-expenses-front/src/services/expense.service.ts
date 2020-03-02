@@ -35,4 +35,11 @@ export class ExpenseService {
         params : params
       }).pipe(map(x => x.body)) as any;
   }
+  public saveExpense(expense : IExpense) : Observable<IExpense>{
+    return this.http.put<IExpense>(this.API_PATH+'?id='+expense.id, {
+      valorPago : expense.valorPago,
+      valorLiquidado : expense.valorLiquidado,
+      valorEmpenhado : expense.valorEmpenhado
+    });
+  }
 }

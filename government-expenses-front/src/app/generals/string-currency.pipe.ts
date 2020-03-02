@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import NumberUtils from 'src/common/number.utils';
 
 @Pipe({
   name: 'stringCurrency'
@@ -6,7 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class StringCurrencyPipe implements PipeTransform {
 
   transform(value: string): any {
-    let _val = parseFloat(value.replace(',', '.'));
+    let _val = NumberUtils.toCurrency(parseFloat(value.replace(',', '.')));
     return `R$ ${_val}`;
   }
 

@@ -109,6 +109,7 @@ namespace GovernmentExpenses.Expenses
             values[30] = item.EmpenhoNumero;
             // Sub Empenho
             values[31] = item.SubEmpenho;
+            values[32] = item.IndicadorSubEmpenho;
             // Credor
             values[33] = item.Credor.Code;
             values[34] = item.Credor.Name;
