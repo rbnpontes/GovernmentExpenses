@@ -6,16 +6,17 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
+import { StringCurrencyPipe } from './string-currency.pipe';
 @NgModule({
-  imports: [
-    CommonModule,
-    BrowserAnimationsModule
-  ],
-  exports: [
-    LoadingComponent,
-  ],
-  declarations: [
-    LoadingComponent
-  ]
+   imports: [
+      CommonModule,
+      BrowserAnimationsModule
+   ],
+   exports: [
+      LoadingComponent
+   ],
+   declarations: [
+      LoadingComponent
+   ]
 })
 export class GeneralModule { }

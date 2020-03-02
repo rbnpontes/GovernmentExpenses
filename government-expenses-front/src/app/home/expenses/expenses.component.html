@@ -1,5 +1,47 @@
-<mat-card>
-  <table mat-table [dataSource]="data" matSort matSortActive="created" matSortDisableClear
-    matSortDirection="desc">
+<div class="mat-elevation-z1 expenses-container">
+  <div class="expense-loading d-flex justify-content-center align-items-center" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+  <table mat-table [dataSource]="data.items" matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+    class="w-100">
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>#</th>
+      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+    </ng-container>
+    <!-- Organ Column -->
+    <ng-container matColumnDef="organ">
+      <th mat-header-cell *matHeaderCellDef>Organ</th>
+      <td mat-cell *matCellDef="let row">{{row.orgao.name}}</td>
+    </ng-container>
+    <!-- Category Column -->
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef>Category</th>
+      <td mat-cell *matCellDef="let row">{{row.categoriaEconomica.name}}</td>
+    </ng-container>
+    <!-- Source Column -->
+    <ng-container matColumnDef="source">
+      <th mat-header-cell *matHeaderCellDef>Source</th>
+      <td mat-cell *matCellDef="let row">{{row.fonteRecurso.name}}</td>
+    </ng-container>
+    <!-- Source Column -->
+    <ng-container matColumnDef="value_settled">
+      <th mat-header-cell *matHeaderCellDef>Value Settled</th>
+      <td mat-cell *matCellDef="let row">{{row.valorEmpenhado | stringCurrency}}</td>
+    </ng-container>
+    <!-- Source Column -->
+    <ng-container matColumnDef="value_commited">
+      <th mat-header-cell *matHeaderCellDef>Value Commited</th>
+      <td mat-cell *matCellDef="let row">{{row.valorLiquidado | stringCurrency}}</td>
+    </ng-container>
+    <!-- Source Column -->
+    <ng-container matColumnDef="value_payed">
+      <th mat-header-cell *matHeaderCellDef>Value Payed</th>
+      <td mat-cell *matCellDef="let row">{{row.valorPago | stringCurrency}}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="expenseColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: expenseColumns;"></tr>
   </table>
-</mat-card>
+  <mat-paginator [length]="data.totalItems" [pageIndex]="pageIdx" [pageSizeOptions]="pageSizes" [pageSize]="pageSize"
+    (page)="handlePageChange($event)"></mat-paginator>
+</div>

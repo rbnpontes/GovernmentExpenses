@@ -34,13 +34,14 @@ namespace GovernmentExpenses.Expenses.Controllers
             if (pageSize == null)
                 pageSize = 10;
 
-            return new Pager<T>
+            var result = new Pager<T>
             {
                 Page = page.Value,
                 PageCount = source.Count() / pageSize.Value,
                 TotalItems = source.Count(),
                 Items = source.Page(page.Value, pageSize.Value)
             };
+            return result;
         }
         /// <summary>
         /// Retrieve all Expenses

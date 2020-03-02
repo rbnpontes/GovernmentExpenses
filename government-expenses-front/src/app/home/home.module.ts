@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardPlaceholderComponent } from './dashboard/dashboard-placeholder/dashboard-placeholder.component';
 import { DashboardMonthlyExpensesComponent } from './dashboard/dashboard-monthly-expenses/dashboard-monthly-expenses.component';
 import { DashboardTotalExpenseGraphComponent } from './dashboard/dashboard-total-expense-graph/dashboard-total-expense-graph.component';
+import { StringCurrencyPipe } from '../generals/string-currency.pipe';
 
 const routes : Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},

@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GeneralModule } from './generals/general.module';
 import { HomeModule } from './home/home.module';
+import { HttpClientModule } from '@angular/common/http';
+import { StringCurrencyPipe } from './generals/string-currency.pipe';
 
 @NgModule({
    declarations: [
@@ -15,9 +17,11 @@ import { HomeModule } from './home/home.module';
       BrowserModule,
       AppRoutingModule,
       BrowserAnimationsModule,
+      HttpClientModule,
       GeneralModule,
       HomeModule
    ],
+   exports: [],
    providers: [],
    bootstrap: [
       AppComponent

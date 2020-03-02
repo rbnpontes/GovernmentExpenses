@@ -9,7 +9,7 @@ namespace GovernmentExpenses.Core
     {
         public static IEnumerable<TSource> Page<TSource>(this IEnumerable<TSource> source, int page, int pageSize)
         {
-            return source.Skip((page - 1) * pageSize).Take(pageSize);
+            return source.Skip(page * pageSize).Take(pageSize);
         }
         public static IEnumerable<TSource> Order<TSource,TKey>(this IEnumerable<TSource> data, bool? desc, Func<TSource, TKey> predicate)
         {

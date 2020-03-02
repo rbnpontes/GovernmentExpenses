@@ -51,7 +51,9 @@ const MaterialModules = [
     MatGridListModule,
     MatCardModule,
     MatButtonToggleModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule
 ];
 @NgModule({
     declarations: [],

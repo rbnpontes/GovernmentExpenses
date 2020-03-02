@@ -31,7 +31,7 @@ export class DashboardTotalExpenseGraphComponent implements OnInit {
   ngOnInit() {
   }
 
-  private tryRedirect() {
+  public tryRedirect() {
     if (this.value.groupCode)
       this.router.navigate(['/expenses'], {queryParams: {q : '/group/mes_movimentacao/' + this.value.groupCode}});
     else
