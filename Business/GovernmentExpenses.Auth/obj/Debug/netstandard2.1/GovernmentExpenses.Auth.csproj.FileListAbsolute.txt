@@ -1,9 +1,0 @@
-C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses-Back\bin\Business\GovernmentExpenses.Auth.deps.json
-C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses-Back\bin\Business\GovernmentExpenses.Auth.dll
-C:\Users\Ruben\Documents\Projects\GovernmentExpenses\GovernmentExpenses-Back\bin\Business\GovernmentExpenses.Auth.pdb
-C:\Users\Ruben\Documents\Projects\GovernmentExpenses\Business\GovernmentExpenses.Auth\obj\Debug\netstandard2.1\GovernmentExpenses.Auth.csprojAssemblyReference.cache
-C:\Users\Ruben\Documents\Projects\GovernmentExpenses\Business\GovernmentExpenses.Auth\obj\Debug\netstandard2.1\GovernmentExpenses.Auth.AssemblyInfoInputs.cache
-C:\Users\Ruben\Documents\Projects\GovernmentExpenses\Business\GovernmentExpenses.Auth\obj\Debug\netstandard2.1\GovernmentExpenses.Auth.AssemblyInfo.cs
-C:\Users\Ruben\Documents\Projects\GovernmentExpenses\Business\GovernmentExpenses.Auth\obj\Debug\netstandard2.1\GovernmentExpenses.Auth.csproj.CopyComplete
-C:\Users\Ruben\Documents\Projects\GovernmentExpenses\Business\GovernmentExpenses.Auth\obj\Debug\netstandard2.1\GovernmentExpenses.Auth.dll
-C:\Users\Ruben\Documents\Projects\GovernmentExpenses\Business\GovernmentExpenses.Auth\obj\Debug\netstandard2.1\GovernmentExpenses.Auth.pdb
