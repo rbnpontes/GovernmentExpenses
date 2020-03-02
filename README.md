@@ -1,4 +1,6 @@
 # Government Expenses
+Demo: https://governmentexpenses.firebaseapp.com/dashboard
+Server Swagger: https://governmentexpenses.azurewebsites.net/swagger
 ## How To Build (Server)
 1. Clone Repository
 2. Go to folder "GovernmentExpenses\GovernmentExpenses-Back"
