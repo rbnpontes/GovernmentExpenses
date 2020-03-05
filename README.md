@@ -13,7 +13,7 @@ Server API: https://governmentexpenses.azurewebsites.net/swagger
 1. In Solution go to "GovernmentExpenses-Back" project
 2. Right click and goto "Properties"
 3. Click on "Build" and remove "SWAGGER" value from "Conditional compilation symbols".
-## Use Google Spreadsheet Database
+## Use Google Spreadsheet Database (OPTIONAL)
 Currently the Application uses the db.json file located in the "Artifacts" folder as a Database, but the application can use Google Spreadsheets as a Data Source.
 For enable this feature, see steps:
 1. At solution, goto GovernmentExpenses.Expenses project
