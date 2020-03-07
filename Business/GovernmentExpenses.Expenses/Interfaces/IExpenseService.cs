@@ -16,7 +16,7 @@ namespace GovernmentExpenses.Expenses.Interfaces
         IDictionary<string, IExpenseGroup> FetchExpensesGroupByProp(string prop);
         IEnumerable<ExpenseDTO> FetchExpenseGroupItems(string prop, object[] groupCode, string orderBy = null, bool? orderDesc = null);
         IEnumerable<ExpenseDTO> FetchExpenseGroupItems(string prop, object groupCode, string orderBy = null, bool? orderDesc = null);
-        IReadOnlyList<IExpensePair> FetchEnum(string prop, string orderBy = null, bool? orderDesc = null);
+        IReadOnlyList<IExpensePair<object>> FetchEnum(string prop, string orderBy = null, bool? orderDesc = null);
         IEnumerable<string> FetchEnumKeys(bool? orderDesc);
         ExpenseDTO TryEditExpense(int id, ExpenseForm form);
         int ExpensesCount { get; }

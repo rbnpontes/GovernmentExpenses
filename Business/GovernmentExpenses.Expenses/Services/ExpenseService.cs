@@ -33,10 +33,10 @@ namespace GovernmentExpenses.Expenses.Services
         {
             return ExpensesKeyPairs.Keys.Order(orderDesc, x => x);
         }
-        public IReadOnlyList<IExpensePair> FetchEnum(string prop, string orderBy = null, bool? orderDesc = null)
+        public IReadOnlyList<IExpensePair<object>> FetchEnum(string prop, string orderBy = null, bool? orderDesc = null)
         {
             if (string.IsNullOrEmpty(prop) || !EnumKeyPairs.ContainsKey(prop))
-                return new List<IExpensePair>().AsReadOnly();
+                return new List<IExpensePair<object>>().AsReadOnly();
             var values = Repository.All().Select(EnumKeyPairs[prop]).DistinctBy(x => x.Code);
 
             if (!string.IsNullOrEmpty(orderBy) && (orderBy == "code" || orderBy == "name"))
@@ -44,7 +44,7 @@ namespace GovernmentExpenses.Expenses.Services
             else if (orderDesc != null)
                 orderBy = "code";
 
-            Func<IExpensePair, object> predicate = (x) => orderBy == "code" ? x.Code : x.Name;
+            Func<IExpensePair<object>, object> predicate = (x) => orderBy == "code" ? x.Code : x.Name;
             return values.Order(orderDesc, predicate).ToList().AsReadOnly();
         }
         public IEnumerable<string> FetchEnumKeys(bool? orderDesc)
@@ -184,13 +184,18 @@ namespace GovernmentExpenses.Expenses.Services
         {
             if (second == null)
                 return first;
-            first.Code = second.Code ?? first.Code;
+            if (second.Code.Equals(0))
+                return first;
+            first.Code = second.Code;
             first.Name = NullCoalescingForString(first.Name, second.Name);
             return first;
         }
         public string NullCoalescingForString(string first, string second)
         {
-            return string.IsNullOrEmpty(second) ? first : second;
+            if (string.IsNullOrEmpty(second))
+                return first;
+            else
+                return second.Equals("string") ? first : second;
         }
         public string NullCoalescingForCurrency(string first, string second)
         {

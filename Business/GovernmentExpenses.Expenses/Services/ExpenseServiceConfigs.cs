@@ -59,24 +59,24 @@ namespace GovernmentExpenses.Expenses.Services
             {"valor_pago", (x)=> x.ValorPago},
             {"valor_liquidado", (x)=> x.ValorLiquidado }
         };
-        private readonly Dictionary<string, Func<Expense, IExpensePair>> EnumKeyPairs = new Dictionary<string, Func<Expense, IExpensePair>>
+        private readonly Dictionary<string, Func<Expense, IExpensePair<object>>> EnumKeyPairs = new Dictionary<string, Func<Expense, IExpensePair<object>>>
         {
-            {"orgao",           (x)=> x.Orgao },
-            {"unidade",         (x)=> x.Unidade },
-            {"categoria",       (x)=> x.CategoriaEconomica},
-            {"grupo",           (x)=> x.GrupoDespesa},
-            {"mod_aplicacao",   (x)=> x.ModalidadeAplicacao},
-            {"elemento",        (x)=> x.Elemento},
-            {"sub_elemento",    (x)=> x.SubElemento},
-            {"funcao",          (x)=> x.Funcao },
-            {"sub_funcao",      (x)=> x.SubFuncao },
-            {"programa",        (x)=> x.Programa},
-            {"acao",            (x)=> x.Acao },
-            {"fonte_recurso",   (x)=> x.FonteRecurso},
-            {"empenho_mod",     (x)=> x.EmpenhoModalidade },
-            {"credor",          (x)=> x.Credor},
-            {"mod_licitacao",   (x)=> x.ModalidadeLicitacao },
-            {"mes_movimentacao",(x)=> x.MesMovimentacao}
+            {"orgao",           (x)=> x.Orgao.Default },
+            {"unidade",         (x)=> x.Unidade.Default },
+            {"categoria",       (x)=> x.CategoriaEconomica.Default},
+            {"grupo",           (x)=> x.GrupoDespesa.Default},
+            {"mod_aplicacao",   (x)=> x.ModalidadeAplicacao.Default},
+            {"elemento",        (x)=> x.Elemento.Default},
+            {"sub_elemento",    (x)=> x.SubElemento.Default},
+            {"funcao",          (x)=> x.Funcao.Default},
+            {"sub_funcao",      (x)=> x.SubFuncao.Default },
+            {"programa",        (x)=> x.Programa.Default},
+            {"acao",            (x)=> x.Acao.Default },
+            {"fonte_recurso",   (x)=> x.FonteRecurso.Default},
+            {"empenho_mod",     (x)=> x.EmpenhoModalidade.Default },
+            {"credor",          (x)=> x.Credor.Default},
+            {"mod_licitacao",   (x)=> x.ModalidadeLicitacao.Default },
+            {"mes_movimentacao",(x)=> x.MesMovimentacao.Default}
         };
         private readonly Dictionary<string, Func<IEnumerable<object>, Func<Expense, bool>>> ExpensesKeyPairs = new Dictionary<string, Func<IEnumerable<object>, Func<Expense, bool>>>
         {

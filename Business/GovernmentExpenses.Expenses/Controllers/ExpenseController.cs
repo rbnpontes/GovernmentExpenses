@@ -200,7 +200,7 @@ namespace GovernmentExpenses.Expenses.Controllers
         /// <param name="orderDesc">Order by descending</param>
         /// <returns>List of Properties</returns>
         [HttpGet("enums/{prop}")]
-        public IReadOnlyList<IExpensePair> GetEnums(string prop, [FromQuery(Name = "orderBy")]string orderBy, [FromQuery(Name = "orderDesc")] bool? orderDesc)
+        public IReadOnlyList<IExpensePair<object>> GetEnums(string prop, [FromQuery(Name = "orderBy")]string orderBy, [FromQuery(Name = "orderDesc")] bool? orderDesc)
         {
             return service_.FetchEnum(prop, orderBy, orderDesc);
         }

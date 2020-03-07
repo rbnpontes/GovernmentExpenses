@@ -4,22 +4,29 @@ using System.Text;
 
 namespace GovernmentExpenses.Expenses.Entities
 {
-    public interface IExpensePair
+    public interface IExpensePair<T>
     {
-        public object Code { get; set; }
+        public T Code { get; set; }
         public string Name { get; set; }
     }
-    public class ExpensePair<TCode> : IExpensePair
+    public class ExpensePair<TCode> : IExpensePair<TCode>
     {
         public ExpensePair() { }
-        public ExpensePair(TCode code, string name)
+        internal ExpensePair(object code, string name)
         {
-            Code = code;
+            Code = (TCode)Convert.ChangeType(code, typeof(TCode));
             Name = name;
         }
 
-        public object Code { get; set; }
+        public TCode Code { get; set; }
         public string Name { get; set; }
+        public IExpensePair<object> Default
+        {
+            get
+            {
+                return new ExpensePair<object>(this.Code, this.Name);
+            }
+        }
     }
     public class Expense
     {
