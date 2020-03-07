@@ -34,7 +34,7 @@ namespace GovernmentExpenses.Expenses.Repository
         // Read Database values and save at memory
         private InternalExpenseData ReadInternalData()
         {
-            return Utils.DeserializeFile<InternalExpenseData>($"{AppDomain.CurrentDomain.BaseDirectory}Artifacts\\db.json");
+            return Utils.DeserializeFile<InternalExpenseData>($"{AppDomain.CurrentDomain.BaseDirectory}Artifacts/db.json");
         }
         private IList<InternalExpense> CreatingExpenses(InternalExpenseData data)
         {
@@ -57,13 +57,13 @@ namespace GovernmentExpenses.Expenses.Repository
             {
                 data.Records[(int)idx] = ExpenseUtils.GetArrayFromExpense(item);
             });
-            Utils.SerializeToFile($"{AppDomain.CurrentDomain.BaseDirectory}Artifacts\\db.json", data);
+            Utils.SerializeToFile($"{AppDomain.CurrentDomain.BaseDirectory}Artifacts/db.json", data);
         }
         private void Initialize()
         {
             try
             {
-                logger_.LogInformation($"Reading Database at: \"{AppDomain.CurrentDomain.BaseDirectory}Artifacts\\db.json\"");
+                logger_.LogInformation($"Reading Database at: \"{AppDomain.CurrentDomain.BaseDirectory}Artifacts/db.json\"");
                 InternalExpenseData data = ReadInternalData();
                 logger_.LogInformation("Creating Expenses Objects");
                 expenses_ = CreatingExpenses(data);

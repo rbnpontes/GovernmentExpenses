@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace GovernmentExpenses.Core
@@ -20,10 +21,18 @@ namespace GovernmentExpenses.Core
             float.TryParse(value.Replace(",", "."), out result);
             return result;
         }
+        // Fix: Path issue when deploy to Linux Env
+        private static string NormalizePath(string path)
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                return path.Replace("\\", "/");
+            else
+                return path.Replace("/", "\\");
+        }
         public static T DeserializeFile<T>(string path)
         {
             T result = default(T);
-            using (StreamReader stream = File.OpenText(path))
+            using (StreamReader stream = File.OpenText(NormalizePath(path)))
             {
                 using (JsonTextReader reader = new JsonTextReader(stream))
                 {
@@ -36,7 +45,7 @@ namespace GovernmentExpenses.Core
         }
         public static void SerializeToFile<T>(string path, T obj)
         {
-            using (StreamWriter writer = File.CreateText(path))
+            using (StreamWriter writer = File.CreateText(NormalizePath(path)))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(writer, obj);
