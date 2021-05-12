@@ -23,7 +23,7 @@
     "@angular/router": "~9.0.3",
     "@fortawesome/fontawesome-free": "^5.12.1",
     "bootstrap": "^4.4.1",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "ng2-charts": "^2.3.0",
     "ngx-currency": "^2.2.2",
     "ngx-currency-mask": "^4.3.2",
